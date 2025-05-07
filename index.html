@@ -177,7 +177,15 @@
         selectColor(c){this.selectedColor=c;this.selectedSize=null;},
         selectSize(s){if(this.hasStock(this.selectedColor,s))this.selectedSize=s;},
         hasStock(c,s){return this.productoModal.stock[c]&&this.productoModal.stock[c][s]>0;},
-        pagar(){alert(`Compraste ${this.productoModal.nombre} - Color: ${this.selectedColor} - Talla: ${this.selectedSize}`);},
+        pagar(){
+          if (!this.selectedColor || !this.selectedSize) {
+            alert('Por favor selecciona color y talla antes de comprar para revisar el stock.');
+            return;
+          }
+          const mensaje = `Hola, me gustaría comprar una ${this.productoModal.nombre}, de color: ${this.selectedColor} y talla: ${this.selectedSize}`;
+          const numero = '3506120616';
+          const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+          window.open(url, '_blank');},
         enviarMensaje(){alert(`Gracias, ${this.formulario.nombre}!`);this.formulario={nombre:'',email:'',mensaje:''};}
       },
       mounted(){setInterval(()=>{this.imagenActual=(this.imagenActual+1)%this.imagenesCarrusel.length},5000);}
