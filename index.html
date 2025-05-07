@@ -95,7 +95,7 @@
     <transition name="fade">
       <div v-if="modalAbierto" @click.self="cerrarModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
         <div class="bg-white rounded-2xl overflow-hidden shadow-xl max-w-lg w-full mx-4 p-6 relative">
-          <button @click="cerrarModal" class="absolute top-4 right-4 text-2xl"><i class="fa-solid fa-xmark"></i></button>
+          <button @click="cerrarModal" class="absolute top-3 right-3 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md"><i class="fa-solid fa-xmark"></i></button>
           <img :src="productoModal.imagen" :alt="productoModal.nombre" class="w-full h-64 object-cover rounded" loading="lazy" />
           <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
           <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
