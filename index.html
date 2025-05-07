@@ -32,8 +32,7 @@
     <header class="bg-white sticky top-0 z-50 border-b border-neutral-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#" class="flex items-center space-x-2">
-          <img src="img/logo_ico.ico" alt="Logo Leather Riot" class="h-10 w-auto" />
-          <h1 class="text-3xl font-extrabold tracking-tight">Leather Riot</h1>
+          <img src="img/logo_lateral.png" alt="Logo Leather Riot" class="h-12 w-auto" style="margin-left: -9px;"/>
         </a>
       <nav class="hidden lg:flex space-x-10 text-lg font-medium">
         <a href="#" class="hover:text-neutral-700 transition">Inicio</a>
@@ -44,21 +43,42 @@
         <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
       </button>
     </div>
+    
     </header>
 
-    <!-- Mobile Menu Panel -->
-    <transition name="fade">
-      <div v-if="menuAbierto" class="menu-panel fixed inset-0 z-40 flex">
-        <div @click="menuAbierto = false" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
-        <div class="relative ml-auto w-64 h-full bg-white shadow-xl p-6">
-          <nav class="flex flex-col space-y-6 mt-8">
-            <a href="#" @click="menuAbierto = false" class="text-xl font-semibold uppercase hover:bg-neutral-100 px-4 py-2 rounded transition">Inicio</a>
-            <a href="#catalogo" @click="menuAbierto = false" class="text-xl font-semibold uppercase hover:bg-neutral-100 px-4 py-2 rounded transition">Catálogo</a>
-            <a href="#contacto" @click="menuAbierto = false" class="text-xl font-semibold uppercase hover:bg-neutral-100 px-4 py-2 rounded transition">Contacto</a>
-          </nav>
-        </div>
-      </div>
-    </transition>
+<!-- Mobile Menu Panel -->
+<transition name="fade">
+  <div v-if="menuAbierto" class="fixed inset-0 z-40 flex pt-16">
+    <!-- Backdrop -->
+    <div @click="menuAbierto = false"
+         class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+    <!-- Panel -->
+    <div class="relative ml-auto w-64 h-full bg-gradient-to-b from-white to-neutral-100 shadow-xl p-6 overflow-y-auto">
+      <nav class="flex flex-col space-y-4 mt-4">
+        <a href="#"
+           @click="menuAbierto = false"
+           class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+          <i class="fa-solid fa-house text-xl"></i>
+          <span>Inicio</span>
+        </a>
+        <a href="#catalogo"
+           @click="menuAbierto = false"
+           class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+          <i class="fa-solid fa-box-open text-xl"></i>
+          <span>Catálogo</span>
+        </a>
+        <a href="#contacto"
+           @click="menuAbierto = false"
+           class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+          <i class="fa-solid fa-envelope text-xl"></i>
+          <span>Contacto</span>
+        </a>
+      </nav>      
+      <!-- Separador y icono al final del menú -->
+      <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
+    </div>
+  </div>
+</transition>
 
     <!-- Carrusel -->
     <div class="relative w-full h-[600px] overflow-hidden">
@@ -76,7 +96,7 @@
     <!-- Catálogo -->
     <section id="catalogo" class="flex-1 px-4 sm:px-6 lg:px-8 py-16 bg-white">
       <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-center">Nuestra Colección</h3>
-      <div class="flex justify-center mb-10">
+      <div class="flex items-center justify-center mb-10">
         <label for="filtroGenero" class="text-base sm:text-lg font-medium mr-3">Filtrar por género:</label>
         <select id="filtroGenero" v-model="filtroGenero" class="border border-neutral-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-600 transition">
           <option value="todos">Todos</option>
@@ -100,13 +120,32 @@
     <transition name="fade">
       <div v-if="modalAbierto" @click.self="cerrarModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
         <div class="bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
-          <button @click="cerrarModal" class="absolute top-3 right-3 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md"><i class="fa-solid fa-xmark"></i></button>
-          <img
-            :src="productoModal.imagen"
-            :alt="productoModal.nombre"
-            class="w-full h-auto object-contain rounded max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] mb-4"
-            loading="lazy"
-          />
+          <button 
+            @click="cerrarModal" 
+            class="absolute top-3 right-3 z-30 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="w-full h-80 overflow-hidden mb-4">
+            <div class="relative w-full h-80 overflow-hidden mb-4">
+              <img
+                :src="productoModal.imagenes[selectedColor][imagenIndex]"
+                class="w-full h-full object-cover rounded"
+                loading="lazy"
+              /><button 
+              @click="prevImage" 
+              class="absolute left-2 top-1/2 -translate-y-1/2 p-2 hover:bg-black/10 rounded-full transition-colors"
+            >
+              <i class="fa-solid fa-chevron-left text-black"></i>
+            </button>
+            <button 
+              @click="nextImage" 
+              class="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-black/10 rounded-full transition-colors"
+            >
+              <i class="fa-solid fa-chevron-right text-black"></i>
+            </button>
+            </div>
+          </div>
           <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
           <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
           <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
@@ -173,13 +212,68 @@
         menuAbierto: false,
         showContactUsMessage: false,
         imagenActual: 0,
+        imagenIndex: 0,
         imagenesCarrusel: ['img/hombre-2.webp','img/mujer-2.jpg'],
         filtroGenero: 'todos',
         productos: [
-          {id:1,nombre:'Chaqueta Black Panther',descripcion:'Cuero genuino, estilo moderno',precio:440000,imagen:'img/hombre-1.webp',genero:'hombre',colores:[{name:'Negro',code:'#000'},{name:'Marron',code:'#8B4513'}],tallas:['S','M','L'],stock:{Negro:{S:10,M:0,L:5},Marron:{S:2,M:3,L:0}}},
-          {id:2,nombre:'Chaqueta Elegancia Mujer',descripcion:'Estilo y confort',precio:430000,imagen:'img/mujer-1.webp',genero:'mujer',colores:[{name:'Rojo',code:'#B22222'},{name:'Beige',code:'#F5F5DC'}],tallas:['XS','S','M'],stock:{Rojo:{XS:1,S:2,M:0},Beige:{XS:0,S:5,M:2}}},
-          {id:3,nombre:'Chaqueta Ultra gama Mujer',descripcion:'Estilo y firmeza',precio:450000,imagen:'img/mujer-3.jpg',genero:'mujer',colores:[{name:'Verde',code:'#1B2624'}],tallas:['S'],stock:{Verde:{XS:0,S:2,M:0}}},
-          {id:4,nombre:'Chaqueta Oil Hombre',descripcion:'Enmarcado, tallado',precio:460000,imagen:'img/hombre-3.jpg',genero:'hombre',colores:[{name:'Azul',code:'#35393E'}],tallas:['M'],stock:{Azul:{XS:0,S:0,M:2}}}
+          {
+            id:1,
+            nombre:'Chaqueta Black Panther',
+            descripcion:'Cuero genuino, estilo moderno',
+            precio:440000,
+            imagen:'img/hombre-1.webp',
+            genero:'hombre',
+            colores:[
+              {name:'Negro',code:'#000'},
+              {name:'Marron',code:'#8B4513'}],
+            tallas:['S','M','L'],
+            stock:{
+              Negro:{S:10,M:0,L:5},
+              Marron:{S:2,M:3,L:0}},
+            imagenes:{
+              Negro: [ 'img/hombre-1.webp', 'img/hombre-2.webp' ],
+              Marron: [ 'img/hombre-2.webp', 'img/hombre-1.webp' ],
+            }},
+          {
+            id:2,
+            nombre:'Chaqueta Elegancia Mujer',
+            descripcion:'Estilo y confort',
+            precio:430000,
+            imagen:'img/mujer-1.webp',
+            genero:'mujer',
+            colores:[
+              {name:'Rojo',code:'#B22222'},
+              {name:'Beige',code:'#F5F5DC'}],
+            tallas:['XS','S','M'],
+            stock:{
+              Rojo:{XS:1,S:2,M:0},
+              Beige:{XS:0,S:5,M:2}},
+            imagenes:{
+              Rojo: [ 'img/mujer-1.webp', 'img/mujer-2.jpg' ],
+              Beige: [ 'img/mujer-2.jpg', 'img/mujer-1.webp' ],
+            }},
+          {
+            id:3,
+            nombre:'Chaqueta Ultra gama Mujer',
+            descripcion:'Estilo y firmeza',
+            precio:450000,
+            imagen:'img/mujer-3.jpg',
+            genero:'mujer',
+            colores:[
+              {name:'Verde',code:'#1B2624'}],
+            tallas:['S'],
+            stock:{Verde:{XS:0,S:2,M:0}}},
+          {
+            id:4,
+            nombre:'Chaqueta Oil Hombre',
+            descripcion:'Enmarcado, tallado',
+            precio:460000,
+            imagen:'img/hombre-3.jpg',
+            genero:'hombre',
+            colores:[
+              {name:'Azul',code:'#35393E'}],
+            tallas:['M'],
+            stock:{Azul:{XS:0,S:0,M:2}}}
         ],
         modalAbierto:false,
         productoModal:{},
@@ -196,7 +290,15 @@
           // Si la parte visible supera el inicio del footer, mostramos el mensaje
           this.showContactUsMessage = scrollPos >= footerTop;
         },
-        abrirModal(producto){this.productoModal=producto;this.selectedColor=producto.colores[0].name;this.selectedSize=null;this.modalAbierto=true;},
+        prevImage() {
+          const imgs = this.productoModal.imagenes[this.selectedColor];
+          this.imagenIndex = (this.imagenIndex + imgs.length - 1) % imgs.length;
+        },
+        nextImage() {
+          const imgs = this.productoModal.imagenes[this.selectedColor];
+          this.imagenIndex = (this.imagenIndex + 1) % imgs.length;
+        },
+        abrirModal(producto){this.imagenIndex = 0;this.productoModal=producto;this.selectedColor=producto.colores[0].name;this.selectedSize=null;this.modalAbierto=true;},
         cerrarModal(){this.modalAbierto=false;},
         selectColor(c){this.selectedColor=c;this.selectedSize=null;},
         selectSize(s){if(this.hasStock(this.selectedColor,s))this.selectedSize=s;},
