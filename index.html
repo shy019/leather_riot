@@ -153,6 +153,12 @@
 
     <!-- WhatsApp Fixed -->
     <a href="https://wa.me/573506120616" target="_blank" class="whatsapp-fixed bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg"><i class="fab fa-whatsapp fa-xl"></i></a>
+    <div
+      v-if="showContactUsMessage"
+      class="fixed bottom-7 right-20 bg-white text-neutral-900 px-1 py-2 rounded-lg shadow-md transition-opacity duration-300"
+    >
+      ¿Dudas🤔?
+    </div>
   </div>
 
   <script>
@@ -160,6 +166,7 @@
     createApp({
       data() {return {
         menuAbierto: false,
+        showContactUsMessage: false,
         imagenActual: 0,
         imagenesCarrusel: ['img/hombre-2.webp','img/mujer-2.jpg'],
         filtroGenero: 'todos',
@@ -177,6 +184,13 @@
       }},
       computed:{productosFiltrados(){if(this.filtroGenero==='todos')return this.productos;return this.productos.filter(p=>p.genero===this.filtroGenero)}},
       methods:{
+        onScroll() {
+          const scrollPos = window.scrollY + window.innerHeight;
+          const footer = document.getElementById('contacto');
+          const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+          // Si la parte visible supera el inicio del footer, mostramos el mensaje
+          this.showContactUsMessage = scrollPos >= footerTop;
+        },
         abrirModal(producto){this.productoModal=producto;this.selectedColor=producto.colores[0].name;this.selectedSize=null;this.modalAbierto=true;},
         cerrarModal(){this.modalAbierto=false;},
         selectColor(c){this.selectedColor=c;this.selectedSize=null;},
@@ -193,7 +207,12 @@
           window.open(url, '_blank');},
         enviarMensaje(){alert(`Gracias, ${this.formulario.nombre}!`);this.formulario={nombre:'',email:'',mensaje:''};}
       },
-      mounted(){setInterval(()=>{this.imagenActual=(this.imagenActual+1)%this.imagenesCarrusel.length},5000);}
+      mounted(){
+        window.addEventListener('scroll', this.onScroll);
+        setInterval(()=>{this.imagenActual=(this.imagenActual+1)%this.imagenesCarrusel.length},5000);},
+      beforeUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
+      }
     }).mount('#app');
   </script>
 </body>
