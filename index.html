@@ -30,7 +30,7 @@
   <div id="app" class="min-h-screen flex flex-col">
     <!-- Header -->
     <header class="bg-white shadow-md p-6 flex justify-between items-center sticky top-0 z-50">
-      <h1 class="text-3xl font-extrabold tracking-tight">CueroEstilo</h1>
+      <h1 class="text-3xl font-extrabold tracking-tight">Leather Riot</h1>
       <nav class="hidden lg:flex space-x-10 text-lg font-medium">
         <a href="#" class="hover:text-neutral-700 transition">Inicio</a>
         <a href="#catalogo" class="hover:text-neutral-700 transition">Catálogo</a>
@@ -143,7 +143,7 @@
         <a href="https://tiktok.com" target="_blank" aria-label="TikTok" class="hover:text-black transition"><i class="fab fa-tiktok"></i></a>
         <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="hover:text-red-600 transition"><i class="fab fa-youtube"></i></a>
       </div>
-      © 2025 CueroEstilo. Todos los derechos reservados.
+      © 2025 Leather Riot. Todos los derechos reservados.
     </footer>
 
     <!-- WhatsApp Fixed -->
@@ -156,11 +156,13 @@
       data() {return {
         menuAbierto: false,
         imagenActual: 0,
-        imagenesCarrusel: ['img/hombre-1.webp','img/mujer-1.webp'],
+        imagenesCarrusel: ['img/hombre-2.webp','img/mujer-2.jpg'],
         filtroGenero: 'todos',
         productos: [
-          {id:1,nombre:'Chaqueta Black Panther',descripcion:'Cuero genuino, estilo moderno',precio:320000,imagen:'img/hombre-1.webp',genero:'hombre',colores:[{name:'Negro',code:'#000'},{name:'Marron',code:'#8B4513'}],tallas:['S','M','L'],stock:{Negro:{S:10,M:0,L:5},Marron:{S:2,M:3,L:0}}},
-          {id:2,nombre:'Chaqueta Elegancia Mujer',descripcion:'Estilo y confort',precio:350000,imagen:'img/mujer-1.webp',genero:'mujer',colores:[{name:'Rojo',code:'#B22222'},{name:'Beige',code:'#F5F5DC'}],tallas:['XS','S','M'],stock:{Rojo:{XS:1,S:2,M:0},Beige:{XS:0,S:5,M:2}}}
+          {id:1,nombre:'Chaqueta Black Panther',descripcion:'Cuero genuino, estilo moderno',precio:440000,imagen:'img/hombre-1.webp',genero:'hombre',colores:[{name:'Negro',code:'#000'},{name:'Marron',code:'#8B4513'}],tallas:['S','M','L'],stock:{Negro:{S:10,M:0,L:5},Marron:{S:2,M:3,L:0}}},
+          {id:2,nombre:'Chaqueta Elegancia Mujer',descripcion:'Estilo y confort',precio:430000,imagen:'img/mujer-1.webp',genero:'mujer',colores:[{name:'Rojo',code:'#B22222'},{name:'Beige',code:'#F5F5DC'}],tallas:['XS','S','M'],stock:{Rojo:{XS:1,S:2,M:0},Beige:{XS:0,S:5,M:2}}},
+          {id:3,nombre:'Chaqueta Ultra gama Mujer',descripcion:'Estilo y firmeza',precio:450000,imagen:'img/mujer-3.jpg',genero:'mujer',colores:[{name:'Verde',code:'#1B2624'}],tallas:['S'],stock:{Verde:{XS:0,S:2,M:0}}},
+          {id:4,nombre:'Chaqueta Elegancia Mujer',descripcion:'Enmarcado, tallado',precio:460000,imagen:'img/hombre-3.jpg',genero:'hombre',colores:[{name:'Azul',code:'#35393E'}],tallas:['M'],stock:{Azul:{XS:0,S:0,M:2}}}
         ],
         modalAbierto:false,
         productoModal:{},
