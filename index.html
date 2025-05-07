@@ -126,26 +126,29 @@
           >
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <div class="w-full h-80 overflow-hidden mb-4">
-            <div class="relative w-full h-80 overflow-hidden mb-4">
+            <div class="relative w-full h-64 sm:h-80 lg:h-[500px] overflow-hidden mb-4">
               <img
                 :src="productoModal.imagenes[selectedColor][imagenIndex]"
-                class="w-full h-full object-cover rounded"
+                class="w-full h-full object-contain bg-neutral-100 rounded"
                 loading="lazy"
               />
+              <!-- Flecha izquierda -->
               <button 
-              @click="prevImage" 
-              class="absolute left-2 top-1/2 -translate-y-1/2 p-3 bg-black/40 hover:bg-black/60 rounded-full transition-colors z-20"
+                v-if="productoModal.imagenes[selectedColor].length > 1"
+                @click="prevImage" 
+                class="absolute left-2 top-1/2 -translate-y-1/2 p-3 bg-black/40 hover:bg-black/60 text-black rounded-full transition-colors z-20"
               >
                 <i class="fa-solid fa-chevron-left text-white text-2xl"></i>
               </button>
+
+              <!-- Flecha derecha -->
               <button 
+                v-if="productoModal.imagenes[selectedColor].length > 1"
                 @click="nextImage" 
-                class="absolute right-2 top-1/2 -translate-y-1/2 p-3 bg-black/40 hover:bg-black/60 rounded-full transition-colors z-20"
+                class="absolute right-2 top-1/2 -translate-y-1/2 p-3 bg-black/40 hover:bg-black/60 text-black rounded-full transition-colors z-20"
               >
                 <i class="fa-solid fa-chevron-right text-white text-2xl"></i>
               </button>
-            </div>
           </div>
           <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
           <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
@@ -263,7 +266,11 @@
             colores:[
               {name:'Verde',code:'#1B2624'}],
             tallas:['S'],
-            stock:{Verde:{XS:0,S:2,M:0}}},
+            stock:{
+              Verde:{XS:0,S:2,M:0}},
+            imagenes:{
+              Verde: [ 'img/mujer-3.jpg']
+            }},
           {
             id:4,
             nombre:'Chaqueta Oil Hombre',
@@ -274,7 +281,11 @@
             colores:[
               {name:'Azul',code:'#35393E'}],
             tallas:['M'],
-            stock:{Azul:{XS:0,S:0,M:2}}}
+            stock:{
+              Azul:{XS:0,S:0,M:2}},
+            imagenes:{
+              Azul: [ 'img/hombre-3.jpg']
+            }}
         ],
         modalAbierto:false,
         productoModal:{},
