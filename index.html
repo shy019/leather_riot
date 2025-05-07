@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cuero Estilo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body { font-family: 'Helvetica Neue', sans-serif; }
+    .whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+    select {
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: 95% center;
+    }
+    @media screen and (max-width: 1024px) { .menu-panel { padding-top: 80px; } }
+    .fade-enter-active, .fade-leave-active { transition: opacity .3s; }
+    .fade-enter-from, .fade-leave-to    { opacity: 0; }
+    .color-btn { width: 28px; height: 28px; border-radius: 9999px; border: 2px solid white; cursor: pointer; transition: transform 0.2s; }
+    .color-btn.selected { outline: 2px solid black; transform: scale(1.1); }
+    .size-btn { padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 0.5rem; background-color: white; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
+    .size-btn.selected { background-color: black; color: white; }
+    .size-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+  </style>
+</head>
+<body class="bg-neutral-50 text-neutral-900 scroll-smooth">
+  <div id="app" class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-md p-6 flex justify-between items-center sticky top-0 z-50">
+      <h1 class="text-3xl font-extrabold tracking-tight">CueroEstilo</h1>
+      <nav class="hidden lg:flex space-x-10 text-lg font-medium">
+        <a href="#" class="hover:text-neutral-700 transition">Inicio</a>
+        <a href="#catalogo" class="hover:text-neutral-700 transition">Catálogo</a>
+        <a href="#contacto" class="hover:text-neutral-700 transition">Contacto</a>
+      </nav>
+      <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl focus:outline-none" aria-label="Toggle menu">
+        <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+      </button>
+    </header>
+
+    <!-- Mobile Menu Panel -->
+    <transition name="fade">
+      <div v-if="menuAbierto" class="menu-panel fixed inset-0 z-40 flex">
+        <div @click="menuAbierto = false" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+        <div class="relative ml-auto w-64 h-full bg-white shadow-xl p-6">
+          <nav class="flex flex-col space-y-6 mt-8">
+            <a href="#" @click="menuAbierto = false" class="text-xl font-semibold uppercase hover:bg-neutral-100 px-4 py-2 rounded transition">Inicio</a>
+            <a href="#catalogo" @click="menuAbierto = false" class="text-xl font-semibold uppercase hover:bg-neutral-100 px-4 py-2 rounded transition">Catálogo</a>
+            <a href="#contacto" @click="menuAbierto = false" class="text-xl font-semibold uppercase hover:bg-neutral-100 px-4 py-2 rounded transition">Contacto</a>
+          </nav>
+        </div>
+      </div>
+    </transition>
+
+    <!-- Carrusel -->
+    <div class="relative w-full h-[600px] overflow-hidden">
+      <transition name="fade" mode="out-in">
+        <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover" alt="Carrusel" loading="lazy" />
+      </transition>
+      <div class="absolute inset-0 bg-black/40 flex items-center justify-center px-4">
+        <div class="text-center text-white max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Descubre tu estilo en cuero</h2>
+          <p class="text-base sm:text-lg mb-6">Diseños auténticos, artesanía impecable. Chaquetas que definen tu presencia.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Catálogo -->
+    <section id="catalogo" class="flex-1 px-4 sm:px-6 lg:px-8 py-16 bg-white">
+      <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-center">Nuestra Colección</h3>
+      <div class="flex justify-center mb-10">
+        <label for="filtroGenero" class="text-base sm:text-lg font-medium mr-3">Filtrar por género:</label>
+        <select id="filtroGenero" v-model="filtroGenero" class="border border-neutral-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-600 transition">
+          <option value="todos">Todos</option>
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div v-for="producto in productosFiltrados" :key="producto.id" class="bg-neutral-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition cursor-pointer" @click="abrirModal(producto)">
+          <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-64 sm:h-72 md:h-80 object-cover" loading="lazy" />
+          <div class="p-6">
+            <h4 class="text-lg sm:text-xl font-semibold mb-2">{{ producto.nombre }}</h4>
+            <p class="text-sm text-neutral-600 mb-3">{{ producto.descripcion }}</p>
+            <p class="text-base sm:text-lg font-bold text-neutral-900 mb-4">${{ producto.precio.toLocaleString() }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <transition name="fade">
+      <div v-if="modalAbierto" @click.self="cerrarModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-xl max-w-lg w-full mx-4 p-6 relative">
+          <button @click="cerrarModal" class="absolute top-4 right-4 text-2xl"><i class="fa-solid fa-xmark"></i></button>
+          <img :src="productoModal.imagen" :alt="productoModal.nombre" class="w-full h-64 object-cover rounded" loading="lazy" />
+          <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
+          <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
+          <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
+
+          <!-- Colores -->
+          <div class="mb-4">
+            <h5 class="font-semibold mb-2">Color:</h5>
+            <div class="flex space-x-3">
+              <button v-for="color in productoModal.colores" :key="color.name" class="color-btn" :class="{ 'selected': selectedColor === color.name }" :style="{ backgroundColor: color.code }" @click="selectColor(color.name)"></button>
+            </div>
+          </div>
+
+          <!-- Tallas -->
+          <div class="mb-4">
+            <h5 class="font-semibold mb-2">Talla:</h5>
+            <div class="flex space-x-3">
+              <button v-for="t in productoModal.tallas" :key="t" class="size-btn" :class="{ 'disabled': !hasStock(selectedColor, t), 'selected': selectedSize === t }" @click="selectSize(t)" :disabled="!hasStock(selectedColor, t)">{{ t }}</button>
+            </div>
+          </div>
+
+          <button @click="pagar()" class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition">Comprar</button>
+        </div>
+      </div>
+    </transition>
+
+    <!-- Contacto -->
+    <section id="contacto" class="bg-neutral-100 py-16 px-8">
+      <h3 class="text-2xl font-bold mb-8 text-center">Contáctanos</h3>
+      <div class="max-w-xl mx-auto space-y-6">
+        <form @submit.prevent="enviarMensaje" class="space-y-4">
+          <input type="text" v-model="formulario.nombre" placeholder="Tu nombre" required class="w-full border px-4 py-2 rounded" />
+          <input type="email" v-model="formulario.email" placeholder="Tu correo electrónico" required class="w-full border px-4 py-2 rounded" />
+          <textarea v-model="formulario.mensaje" placeholder="Tu mensaje" required class="w-full border px-4 py-2 rounded"></textarea>
+          <button type="submit" class="w-full bg-black text-white px-4 py-2 rounded hover:bg-neutral-800 transition">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p-6 border-t text-center text-sm bg-white">
+      <div class="mb-4 flex justify-center space-x-6 text-xl text-neutral-700">
+        <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="hover:text-blue-600 transition"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="hover:text-pink-600 transition"><i class="fab fa-instagram"></i></a>
+        <a href="https://tiktok.com" target="_blank" aria-label="TikTok" class="hover:text-black transition"><i class="fab fa-tiktok"></i></a>
+        <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="hover:text-red-600 transition"><i class="fab fa-youtube"></i></a>
+      </div>
+      © 2025 CueroEstilo. Todos los derechos reservados.
+    </footer>
+
+    <!-- WhatsApp Fixed -->
+    <a href="https://wa.me/573506120616" target="_blank" class="whatsapp-fixed bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg"><i class="fab fa-whatsapp fa-xl"></i></a>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {return {
+        menuAbierto: false,
+        imagenActual: 0,
+        imagenesCarrusel: ['img/hombre-1.webp','img/mujer-1.webp'],
+        filtroGenero: 'todos',
+        productos: [
+          {id:1,nombre:'Chaqueta Black Panther',descripcion:'Cuero genuino, estilo moderno',precio:320000,imagen:'img/hombre-1.webp',genero:'hombre',colores:[{name:'Negro',code:'#000'},{name:'Marron',code:'#8B4513'}],tallas:['S','M','L'],stock:{Negro:{S:10,M:0,L:5},Marron:{S:2,M:3,L:0}}},
+          {id:2,nombre:'Chaqueta Elegancia Mujer',descripcion:'Estilo y confort',precio:350000,imagen:'img/mujer-1.webp',genero:'mujer',colores:[{name:'Rojo',code:'#B22222'},{name:'Beige',code:'#F5F5DC'}],tallas:['XS','S','M'],stock:{Rojo:{XS:1,S:2,M:0},Beige:{XS:0,S:5,M:2}}}
+        ],
+        modalAbierto:false,
+        productoModal:{},
+        selectedColor:null,
+        selectedSize:null,
+        formulario:{nombre:'',email:'',mensaje:''}
+      }},
+      computed:{productosFiltrados(){if(this.filtroGenero==='todos')return this.productos;return this.productos.filter(p=>p.genero===this.filtroGenero)}},
+      methods:{
+        abrirModal(producto){this.productoModal=producto;this.selectedColor=producto.colores[0].name;this.selectedSize=null;this.modalAbierto=true;},
+        cerrarModal(){this.modalAbierto=false;},
+        selectColor(c){this.selectedColor=c;this.selectedSize=null;},
+        selectSize(s){if(this.hasStock(this.selectedColor,s))this.selectedSize=s;},
+        hasStock(c,s){return this.productoModal.stock[c]&&this.productoModal.stock[c][s]>0;},
+        pagar(){alert(`Compraste ${this.productoModal.nombre} - Color: ${this.selectedColor} - Talla: ${this.selectedSize}`);},
+        enviarMensaje(){alert(`Gracias, ${this.formulario.nombre}!`);this.formulario={nombre:'',email:'',mensaje:''};}
+      },
+      mounted(){setInterval(()=>{this.imagenActual=(this.imagenActual+1)%this.imagenesCarrusel.length},5000);}
+    }).mount('#app');
+  </script>
+</body>
+</html>
