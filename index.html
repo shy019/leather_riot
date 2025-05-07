@@ -29,8 +29,12 @@
 <body class="bg-neutral-50 text-neutral-900 scroll-smooth">
   <div id="app" class="min-h-screen flex flex-col">
     <!-- Header -->
-    <header class="bg-white shadow-md p-6 flex justify-between items-center sticky top-0 z-50">
-      <h1 class="text-3xl font-extrabold tracking-tight">Leather Riot</h1>
+    <header class="bg-white sticky top-0 z-50 border-b border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="#" class="flex items-center space-x-2">
+          <img src="img/logo_ico.ico" alt="Logo Leather Riot" class="h-10 w-auto" />
+          <h1 class="text-3xl font-extrabold tracking-tight">Leather Riot</h1>
+        </a>
       <nav class="hidden lg:flex space-x-10 text-lg font-medium">
         <a href="#" class="hover:text-neutral-700 transition">Inicio</a>
         <a href="#catalogo" class="hover:text-neutral-700 transition">Catálogo</a>
@@ -39,6 +43,7 @@
       <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl focus:outline-none" aria-label="Toggle menu">
         <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
       </button>
+    </div>
     </header>
 
     <!-- Mobile Menu Panel -->
