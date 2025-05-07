@@ -94,12 +94,12 @@
     <!-- Modal -->
     <transition name="fade">
       <div v-if="modalAbierto" @click.self="cerrarModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-        <div class="bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
           <button @click="cerrarModal" class="absolute top-3 right-3 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md"><i class="fa-solid fa-xmark"></i></button>
           <img
             :src="productoModal.imagen"
             :alt="productoModal.nombre"
-            class="w-full h-auto object-contain rounded max-h-[60vh] lg:max-h-[70vh]"
+            class="w-full h-auto object-contain rounded max-h-[40vh] sm:max-h-[50vh] lg:max-h-[60vh] mb-4"
             loading="lazy"
           />
           <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
@@ -167,7 +167,7 @@
           {id:1,nombre:'Chaqueta Black Panther',descripcion:'Cuero genuino, estilo moderno',precio:440000,imagen:'img/hombre-1.webp',genero:'hombre',colores:[{name:'Negro',code:'#000'},{name:'Marron',code:'#8B4513'}],tallas:['S','M','L'],stock:{Negro:{S:10,M:0,L:5},Marron:{S:2,M:3,L:0}}},
           {id:2,nombre:'Chaqueta Elegancia Mujer',descripcion:'Estilo y confort',precio:430000,imagen:'img/mujer-1.webp',genero:'mujer',colores:[{name:'Rojo',code:'#B22222'},{name:'Beige',code:'#F5F5DC'}],tallas:['XS','S','M'],stock:{Rojo:{XS:1,S:2,M:0},Beige:{XS:0,S:5,M:2}}},
           {id:3,nombre:'Chaqueta Ultra gama Mujer',descripcion:'Estilo y firmeza',precio:450000,imagen:'img/mujer-3.jpg',genero:'mujer',colores:[{name:'Verde',code:'#1B2624'}],tallas:['S'],stock:{Verde:{XS:0,S:2,M:0}}},
-          {id:4,nombre:'Chaqueta Elegancia Mujer',descripcion:'Enmarcado, tallado',precio:460000,imagen:'img/hombre-3.jpg',genero:'hombre',colores:[{name:'Azul',code:'#35393E'}],tallas:['M'],stock:{Azul:{XS:0,S:0,M:2}}}
+          {id:4,nombre:'Chaqueta Oil Hombre',descripcion:'Enmarcado, tallado',precio:460000,imagen:'img/hombre-3.jpg',genero:'hombre',colores:[{name:'Azul',code:'#35393E'}],tallas:['M'],stock:{Azul:{XS:0,S:0,M:2}}}
         ],
         modalAbierto:false,
         productoModal:{},
