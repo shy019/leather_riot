@@ -1,117 +1,138 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cuero Estilo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/vue@3"></script>
-  <script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Leather Riot: tienda virtual de chaquetas de cuero en Bogotá, Colombia. Diseños auténticos y artesanía premium." />
+  <meta name="robots" content="index, follow" />
+  <title>Leather Riot</title>
+  <link rel="canonical" href="https://www.leatherriot.com/" />
+  <link rel="icon" href="img/logo_nombre.ico" type="image/x-icon" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:site_name" content="Leather Riot" />
+  <meta property="og:title" content="Leather Riot - Chaquetas de Cuero en Bogotá" />
+  <meta property="og:description" content="Tienda virtual de chaquetas de cuero en Bogotá. Calidad y estilo." />
+  <meta property="og:image" content="img/og-image.jpg" />
+  <meta property="og:url" content="https://www.leatherriot.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- CSS -->
+  <link href="css/styles.css" rel="stylesheet" />
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
-    body { font-family: 'Helvetica Neue', sans-serif; }
-    .whatsapp-fixed { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-    select {
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%23000" height="24" viewBox="0 0 24 24" width="24"><path d="M7 10l5 5 5-5z"/></svg>');
-      background-repeat: no-repeat;
-      background-position: 95% center;
-    }
-    @media screen and (max-width: 1024px) { .menu-panel { padding-top: 80px; } }
-    .fade-enter-active, .fade-leave-active { transition: opacity .4s ease; }
-    .fade-enter-from, .fade-leave-to    { opacity: 0; }
-    .color-btn { width: 28px; height: 28px; border-radius: 9999px; border: 2px solid white; cursor: pointer; transition: transform 0.2s; }
-    .color-btn.selected { outline: 2px solid black; transform: scale(1.1); }
-    .size-btn { padding: 0.5rem 1rem; border: 1px solid #ccc; border-radius: 0.5rem; background-color: white; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
-    .size-btn.selected { background-color: black; color: white; }
-    .size-btn.disabled { opacity: 0.4; cursor: not-allowed; }
-    .medium-zoom-overlay,
-    .medium-zoom-image--opened {
-      z-index: 10000 !important;
-    }
-  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script defer>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
 </head>
+
 <body class="bg-neutral-50 text-neutral-900 scroll-smooth">
+
   <div id="app" class="min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="bg-white sticky top-0 z-50 border-b border-neutral-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#" class="flex items-center space-x-2">
-          <img src="img/logo_lateral.png" alt="Logo Leather Riot" class="h-12 w-auto" style="margin-left: -9px;"/>
+  <!-- Header -->
+  <header class="bg-white sticky top-0 z-50 border-b border-neutral-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+     
+      <!-- Logo + selector de idioma juntos -->
+      <div class="flex items-center space-x-2">
+        <a href="#" class="flex items-center">
+          <img
+            src="img/logo_lateral.png"
+            alt="Logo Leather Riot"
+            class="h-12 w-auto -ml-2.5"
+            loading="lazy"
+          />
         </a>
-      <nav class="hidden lg:flex space-x-10 text-lg font-medium">
-        <a href="#" class="hover:text-neutral-700 transition">Inicio</a>
-        <a href="#catalogo" class="hover:text-neutral-700 transition">Catálogo</a>
-        <a href="#contacto" class="hover:text-neutral-700 transition">Contacto</a>
-      </nav>
-      <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl focus:outline-none" aria-label="Toggle menu">
-        <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
-      </button>
+        <button id="lang-flag" onclick="switchLanguage()"
+          style="font-size:24px;background:none;border:none;cursor:pointer;" title="Cambiar idioma">
+          
+  <img
+    id="lang-flag-icon"
+    src="img/flags/us.svg"
+    alt="Inglés"
+    class="h-6 w-6 object-contain"
+    loading="lazy"
+  />
+        </button>
+      </div>
+        <nav class="hidden lg:flex space-x-10 text-lg font-medium">
+          <a href="#" class="hover:text-neutral-700 transition" data-i18n="inicio">Inicio</a>
+          <a href="#catalogo" class="hover:text-neutral-700 transition" data-i18n="inicio">Catálogo</a>
+          <a href="#contacto" class="hover:text-neutral-700 transition" data-i18n="inicio">Contacto</a>
+        </nav>
+        <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl focus:outline-none"
+          aria-label="Alternar menú">
+          <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+        </button>
     </div>
-    
-    </header>
-
-<!-- Mobile Menu Panel -->
-<transition name="fade">
-  <div v-if="menuAbierto" class="fixed inset-0 z-40 flex pt-16">
-    <!-- Backdrop -->
-    <div @click="menuAbierto = false"
-         class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
-    <!-- Panel -->
-    <div class="relative ml-auto w-64 h-full bg-gradient-to-b from-white to-neutral-100 shadow-xl p-6 overflow-y-auto">
-      <nav class="flex flex-col space-y-4 mt-4">
-        <a href="#"
-           @click="menuAbierto = false"
-           class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-          <i class="fa-solid fa-house text-xl"></i>
-          <span>Inicio</span>
-        </a>
-        <a href="#catalogo"
-           @click="menuAbierto = false"
-           class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-          <i class="fa-solid fa-box-open text-xl"></i>
-          <span>Catálogo</span>
-        </a>
-        <a href="#contacto"
-           @click="menuAbierto = false"
-           class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-          <i class="fa-solid fa-envelope text-xl"></i>
-          <span>Contacto</span>
-        </a>
-      </nav>      
-      <!-- Separador y icono al final del menú -->
-      <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
-    </div>
-  </div>
-</transition>
-
+  </header>
+  <div id="app" class="min-h-screen flex flex-col">
+    <!-- Mobile Menu Panel -->
+    <transition name="fade">
+      <div v-if="menuAbierto" class="fixed inset-0 z-40 flex pt-16">
+        <div @click="menuAbierto = false" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+        <div
+          class="relative ml-auto w-64 h-full bg-gradient-to-b from-white to-neutral-100 shadow-xl p-6 overflow-y-auto">
+          <nav class="flex flex-col space-y-4 mt-4">
+            <a href="#" @click="menuAbierto = false"
+              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+              <i class="fa-solid fa-house text-xl"></i><span data-i18n="inicio">Inicio</span>
+            </a>
+            <a href="#catalogo" @click="menuAbierto = false"
+              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+              <i class="fa-solid fa-box-open text-xl"></i><span data-i18n="productos">Catálogo</span>
+            </a>
+            <a href="#contacto" @click="menuAbierto = false"
+              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+              <i class="fa-solid fa-envelope text-xl"></i><span data-i18n="contacto">Contacto</span>
+            </a>
+          </nav>
+          <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
+        </div>
+      </div>
+    </transition>
     <!-- Carrusel -->
     <div class="relative w-full h-[600px] overflow-hidden">
       <transition name="fade" mode="out-in">
-        <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover" alt="Carrusel" loading="lazy" />
+        <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover"
+          alt="Carrusel Leather Riot" loading="lazy" />
       </transition>
       <div class="absolute inset-0 bg-black/40 flex items-center justify-center px-4">
         <div class="text-center text-white max-w-2xl">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Descubre tu estilo en cuero</h2>
-          <p class="text-base sm:text-lg mb-6">Diseños auténticos, artesanía impecable. Chaquetas que definen tu presencia.</p>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" data-i18n="titulo_descripcion">Descubre tu estilo en cuero</h2>
+          <p class="text-base sm:text-lg mb-6" data-i18n="descripcion">Diseños auténticos, artesanía impecable. Chaquetas que definen tu
+            presencia.</p>
         </div>
       </div>
     </div>
-
     <!-- Catálogo -->
     <section id="catalogo" class="flex-1 px-4 sm:px-6 lg:px-8 py-16 bg-white">
-      <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-center">Nuestra Colección</h3>
+      <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-center" data-i18n="titulo">Nuestra Colección</h3>
       <div class="flex items-center justify-center mb-10">
-        <label for="filtroGenero" class="text-base sm:text-lg font-medium mr-3">Filtrar por género:</label>
-        <select id="filtroGenero" v-model="filtroGenero" class="border border-neutral-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-600 transition">
-          <option value="todos">Todos</option>
-          <option value="hombre">Hombre</option>
-          <option value="mujer">Mujer</option>
+        <label for="filtroGenero" class="text-base sm:text-lg font-medium mr-3" data-i18n="filtrar">Filtrar por género:</label>
+        <select id="filtroGenero" v-model="filtroGenero"
+          class="border border-neutral-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-600 transition">
+          <option value="todos" data-i18n="todos">Todos</option>
+          <option value="hombre" data-i18n="hombre">Hombre</option>
+          <option value="mujer" data-i18n="mujer">Mujer</option>
         </select>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="producto in productosFiltrados" :key="producto.id" class="bg-neutral-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition cursor-pointer" @click="abrirModal(producto)">
-          <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-64 sm:h-72 md:h-80 object-cover" loading="lazy" />
+        <div v-for="producto in productosFiltrados" :key="producto.id"
+          class="bg-neutral-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition cursor-pointer"
+          @click="abrirModal(producto)">
+          <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-64 sm:h-72 md:h-80 object-cover"
+            loading="lazy" />
           <div class="p-6">
             <h4 class="text-lg sm:text-xl font-semibold mb-2">{{ producto.nombre }}</h4>
             <p class="text-sm text-neutral-600 mb-3">{{ producto.descripcion }}</p>
@@ -120,266 +141,88 @@
         </div>
       </div>
     </section>
-
     <!-- Modal -->
     <transition name="fade" mode="out-in">
-      <div v-if="modalAbierto" @click.self="cerrarModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-        <div class="modal-content z-[9999] bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
-          <button 
-            @click="cerrarModal" 
-            class="absolute top-3 right-3 z-30 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md"
-          >
+      <div v-if="modalAbierto" @click.self="cerrarModal"
+        class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+        <div
+          class="modal-content z-[9999] bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
+          <button @click="cerrarModal"
+            class="absolute top-3 right-3 z-30 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md">
             <i class="fa-solid fa-xmark"></i>
           </button>
-            <div class="relative w-full h-64 sm:h-80 lg:h-[500px] overflow-hidden mb-4">
-              <img
-              :src="productoModal.imagenes[selectedColor][imagenIndex]"
-              class="zoomable rounded-lg w-full cursor-zoom-in w-full h-full object-contain bg-neutral-100 rounded"
-              loading="lazy"
-              />
-              <!-- Flecha izquierda -->
-              <button 
-                v-if="productoModal.imagenes[selectedColor].length > 1"
-                @click="prevImage" 
-                class="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"
-              >
-                <i class="fa-solid fa-chevron-left text-black text-2xl"></i>
-              </button>
-
-              <!-- Flecha derecha -->
-              <button 
-                v-if="productoModal.imagenes[selectedColor].length > 1"
-                @click="nextImage" 
-                class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"
-              >
-                <i class="fa-solid fa-chevron-right text-black text-2xl"></i>
-              </button>
+          <div class="relative w-full h-64 sm:h-80 lg:h-[500px] overflow-hidden mb-4">
+            <img :src="productoModal.imagenes[selectedColor][imagenIndex]"
+              class="zoomable rounded-lg w-full h-full object-contain bg-neutral-100 cursor-zoom-in" loading="lazy" />
+            <button v-if="productoModal.imagenes[selectedColor].length>1" @click="prevImage"
+              class="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
+                class="fa-solid fa-chevron-left text-black text-2xl"></i></button>
+            <button v-if="productoModal.imagenes[selectedColor].length>1" @click="nextImage"
+              class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
+                class="fa-solid fa-chevron-right text-black text-2xl"></i></button>
           </div>
           <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
           <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
           <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
-
           <!-- Colores -->
           <div class="mb-4">
-            <h5 class="font-semibold mb-2">Color:</h5>
-            <div class="flex space-x-3">
-              <button v-for="color in productoModal.colores" :key="color.name" class="color-btn" :class="{ 'selected': selectedColor === color.name }" :style="{ backgroundColor: color.code }" @click="selectColor(color.name)"></button>
-            </div>
+            <h5 class="font-semibold mb-2" data-i18n="color">Color:</h5>
+            <div class="flex space-x-3"><button v-for="color in productoModal.colores" :key="color.name"
+                class="color-btn" :class="{selected: selectedColor===color.name}" :style="{backgroundColor:color.code}"
+                @click="selectColor(color.name)"></button></div>
           </div>
-
           <!-- Tallas -->
           <div class="mb-4">
-            <h5 class="font-semibold mb-2">Talla:</h5>
-            <div class="flex space-x-3">
-              <button v-for="t in productoModal.tallas" :key="t" class="size-btn" :class="{ 'disabled': !hasStock(selectedColor, t), 'selected': selectedSize === t }" @click="selectSize(t)" :disabled="!hasStock(selectedColor, t)">{{ t }}</button>
-            </div>
+            <h5 class="font-semibold mb-2" data-i18n="talla">Talla:</h5>
+            <div class="flex space-x-3"><button v-for="t in productoModal.tallas" :key="t" class="size-btn"
+                :class="{disabled:!hasStock(selectedColor,t),selected:selectedSize===t}"
+                :disabled="!hasStock(selectedColor,t)" @click="selectSize(t)">{{ t }}</button></div>
           </div>
-
-          <button @click="pagar()" class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition">Comprar</button>
+          <button @click="pagar()"
+            class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition" data-i18n="comprar">Comprar</button>
         </div>
       </div>
     </transition>
-
     <!-- Contacto -->
     <section id="contacto" class="bg-neutral-100 py-16 px-8">
-      <h3 class="text-2xl font-bold mb-8 text-center">Contáctanos</h3>
+      <h3 class="text-2xl font-bold mb-8 text-center" data-i18n="contacto_titulo">Contáctanos</h3>
       <div class="max-w-xl mx-auto space-y-6">
         <form @submit.prevent="enviarMensaje" class="space-y-4">
-          <input type="text" v-model="formulario.nombre" placeholder="Tu nombre" required class="w-full border px-4 py-2 rounded" />
-          <input type="email" v-model="formulario.email" placeholder="Tu correo electrónico" required class="w-full border px-4 py-2 rounded" />
-          <textarea v-model="formulario.mensaje" placeholder="Tu mensaje" required class="w-full border px-4 py-2 rounded"></textarea>
-          <button type="submit" class="w-full bg-black text-white px-4 py-2 rounded hover:bg-neutral-800 transition">Enviar</button>
+          <input type="text" v-model="formulario.nombre" placeholder="Tu nombre" required
+            class="w-full border px-4 py-2 rounded" />
+          <input type="email" v-model="formulario.email" placeholder="Tu correo electrónico" required
+            class="w-full border px-4 py-2 rounded" />
+          <textarea v-model="formulario.mensaje" placeholder="Tu mensaje" required
+            class="w-full border px-4 py-2 rounded"></textarea>
+          <button type="submit"
+            class="w-full bg-black text-white px-4 py-2 rounded hover:bg-neutral-800 transition" data-i18n="contacto_enviar">Enviar</button>
         </form>
       </div>
     </section>
-
     <!-- Footer -->
     <footer class="p-6 border-t text-center text-sm bg-white">
-      <div class="mb-4 flex justify-center space-x-6 text-xl text-neutral-700">
-        <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="hover:text-blue-600 transition"><i class="fab fa-facebook"></i></a>
-        <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="hover:text-pink-600 transition"><i class="fab fa-instagram"></i></a>
-        <a href="https://tiktok.com" target="_blank" aria-label="TikTok" class="hover:text-black transition"><i class="fab fa-tiktok"></i></a>
-        <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="hover:text-red-600 transition"><i class="fab fa-youtube"></i></a>
-      </div>
-      © 2025 Leather Riot. Todos los derechos reservados.
+      <div class="mb-4 flex justify-center space-x-6 text-xl text-neutral-700"><a href="https://facebook.com"
+          target="_blank" class="hover:text-blue-600 transition"><i class="fab fa-facebook"></i></a><a
+          href="https://instagram.com" target="_blank" class="hover:text-pink-600 transition"><i
+            class="fab fa-instagram"></i></a><a href="https://tiktok.com" target="_blank"
+          class="hover:text-black transition"><i class="fab fa-tiktok"></i></a><a href="https://youtube.com"
+          target="_blank" class="hover:text-red-600 transition"><i class="fab fa-youtube"></i></a></div> <p data-i18n="footer_mensaje">© 2025 Leather
+            Riot. Todos los derechos reservados.</p>
     </footer>
-
     <!-- WhatsApp Fixed -->
-    <a href="https://wa.me/573506120616" target="_blank" class="whatsapp-fixed bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg"><i class="fab fa-whatsapp fa-xl"></i></a>
-    <div
-      v-if="showContactUsMessage"
-      class="fixed bottom-7 right-20 bg-white text-neutral-900 px-1 py-2 rounded-lg shadow-md transition-opacity duration-300"
-    >
-      ¿Dudas🤔?
-    </div>
+    <a href="https://wa.me/573506120616" target="_blank"
+      class="whatsapp-fixed bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg"><i
+        class="fab fa-whatsapp fa-xl"></i></a>
+    <div v-if="showContactUsMessage"
+      class="fixed bottom-7 right-20 bg-white text-neutral-900 px-1 py-2 rounded-lg shadow-md transition-opacity duration-300" data-i18n="dudas">
+      ¿Dudas🤔?</div>
   </div>
-
-  <script setup>
-    const { createApp } = Vue;
-  
-    createApp({
-      data() {
-        return {
-          menuAbierto: false,
-          showContactUsMessage: false,
-          imagenActual: 0,
-          imagenIndex: 0,
-          imagenesCarrusel: ['img/hombre-2.webp','img/mujer-2.jpg'],
-          filtroGenero: 'todos',
-          productos: [
-            {
-              id:1,
-              nombre:'Chaqueta Black Panther',
-              descripcion:'Cuero genuino, estilo moderno',
-              precio:440000,
-              imagen:'img/hombre-1.webp',
-              genero:'hombre',
-              colores:[
-                {name:'Negro',code:'#000'},
-                {name:'Marron',code:'#8B4513'}],
-              tallas:['S','M','L'],
-              stock:{
-                Negro:{S:10,M:0,L:5},
-                Marron:{S:2,M:3,L:0}},
-              imagenes:{
-                Negro: [ 'img/hombre-1.webp', 'img/hombre-2.webp' ],
-                Marron: [ 'img/hombre-2.webp', 'img/hombre-1.webp' ],
-              }},
-            {
-              id:2,
-              nombre:'Chaqueta Elegancia Mujer',
-              descripcion:'Estilo y confort',
-              precio:430000,
-              imagen:'img/mujer-1.webp',
-              genero:'mujer',
-              colores:[
-                {name:'Rojo',code:'#B22222'},
-                {name:'Beige',code:'#F5F5DC'}],
-              tallas:['XS','S','M'],
-              stock:{
-                Rojo:{XS:1,S:2,M:0},
-                Beige:{XS:0,S:5,M:2}},
-              imagenes:{
-                Rojo: [ 'img/mujer-1.webp', 'img/mujer-2.jpg' ],
-                Beige: [ 'img/mujer-2.jpg', 'img/mujer-1.webp' ],
-              }},
-            {
-              id:3,
-              nombre:'Chaqueta Ultra gama Mujer',
-              descripcion:'Estilo y firmeza',
-              precio:450000,
-              imagen:'img/mujer-3.jpg',
-              genero:'mujer',
-              colores:[
-                {name:'Verde',code:'#1B2624'}],
-              tallas:['S'],
-              stock:{
-                Verde:{XS:0,S:2,M:0}},
-              imagenes:{
-                Verde: [ 'img/mujer-3.jpg']
-              }},
-            {
-              id:4,
-              nombre:'Chaqueta Oil Hombre',
-              descripcion:'Enmarcado, tallado',
-              precio:460000,
-              imagen:'img/hombre-3.jpg',
-              genero:'hombre',
-              colores:[
-                {name:'Azul',code:'#35393E'}],
-              tallas:['M'],
-              stock:{
-                Azul:{XS:0,S:0,M:2}},
-              imagenes:{
-                Azul: [ 'img/hombre-3.jpg']
-              }}
-          ],
-          modalAbierto: false,
-          productoModal: {},
-          selectedColor: null,
-          selectedSize: null,
-          formulario: {nombre:'',email:'',mensaje:''}
-        }
-      },
-      computed: {
-        productosFiltrados() {
-          if (this.filtroGenero === 'todos') return this.productos;
-          return this.productos.filter(p => p.genero === this.filtroGenero);
-        }
-      },
-      methods: {
-        onScroll() {
-          const scrollPos = window.scrollY + window.innerHeight;
-          const footer = document.getElementById('contacto');
-          const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-          this.showContactUsMessage = scrollPos >= footerTop;
-        },
-        prevImage() {
-          const imgs = this.productoModal.imagenes[this.selectedColor];
-          this.imagenIndex = (this.imagenIndex + imgs.length - 1) % imgs.length;
-        },
-        nextImage() {
-          const imgs = this.productoModal.imagenes[this.selectedColor];
-          this.imagenIndex = (this.imagenIndex + 1) % imgs.length;
-        },
-        abrirModal(producto) {
-          this.imagenIndex = 0;
-          this.productoModal = producto;
-          this.selectedColor = producto.colores[0].name;
-          this.selectedSize = null;
-          this.modalAbierto = true;
-  
-          // Espera a que el DOM del modal esté disponible
-          setTimeout(() => {
-            if (typeof mediumZoom !== 'undefined') {
-              // Elimina cualquier zoom previo y aplica uno nuevo
-              mediumZoom('.zoomable').detach();
-              mediumZoom('.zoomable', {
-                background: 'rgba(0, 0, 0, 0.8)',
-                scrollOffset: 40
-              });
-            }
-          }, 100);
-        },
-        cerrarModal() {
-          this.modalAbierto = false;
-        },
-        selectColor(c) {
-          this.selectedColor = c;
-          this.selectedSize = null;
-        },
-        selectSize(s) {
-          if (this.hasStock(this.selectedColor, s)) this.selectedSize = s;
-        },
-        hasStock(c, s) {
-          return this.productoModal.stock[c] && this.productoModal.stock[c][s] > 0;
-        },
-        pagar() {
-          if (!this.selectedColor || !this.selectedSize) {
-            alert('Por favor selecciona color y talla antes de comprar para revisar el stock.');
-            return;
-          }
-          const mensaje = `Hola, me gustaría comprar una ${this.productoModal.nombre}, de color: ${this.selectedColor} y talla: ${this.selectedSize}`;
-          const numero = '3506120616';
-          const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
-          window.open(url, '_blank');
-        },
-        enviarMensaje() {
-          alert(`Gracias, ${this.formulario.nombre}!`);
-          this.formulario = {nombre:'',email:'',mensaje:''};
-        }
-      },
-      mounted() {
-        window.addEventListener('scroll', this.onScroll);
-        setInterval(() => {
-          this.imagenActual = (this.imagenActual + 1) % this.imagenesCarrusel.length;
-        }, 5000);
-      },
-      beforeUnmount() {
-        window.removeEventListener('scroll', this.onScroll);
-      }
-    }).mount('#app');
-  </script>
-  
+  <!-- Scripts -->
+  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/vue@3"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="js/i18n.js"></script>
 </body>
+
 </html>
