@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="description"
     content="Leather Riot: tienda virtual de chaquetas de cuero en Bogotá, Colombia. Diseños auténticos y artesanía premium." />
   <meta name="robots" content="index, follow" />
@@ -175,15 +175,11 @@
               <!-- Selector de color -->
               <p class="font-semibold mb-2">Color:</p>
               <div class="flex flex-wrap gap-2">
-                <button
-                v-for="color in productoModal.colores"
-                :key="color.name"
-                class="color-btn transition-transform duration-150"
-                :class="{ selected: selectedColor === color.name }"
-                :style="{ backgroundColor: color.code }"
-                :aria-label="color.name"
-                @click="selectColor(color.name)">
-              </button>
+                <button v-for="color in productoModal.colores" :key="color.name"
+                  class="color-btn transition-transform duration-150"
+                  :class="{ selected: selectedColor === color.name }" :style="{ backgroundColor: color.code }"
+                  :aria-label="color.name" @click="selectColor(color.name)">
+                </button>
               </div>
             </div>
 
@@ -191,19 +187,14 @@
               <!-- Selector de talla -->
               <p class="font-semibold mb-2">Talla:</p>
               <div class="flex flex-wrap gap-2">
-                <button
-                v-for="t in productoModal.tallas"
-                :key="t"
-                class="px-3 py-1 rounded border text-sm font-medium transition duration-200"
-                :class="{
+                <button v-for="t in productoModal.tallas" :key="t"
+                  class="px-3 py-1 rounded border text-sm font-medium transition duration-200" :class="{
                   'bg-black text-white border-black scale-105 shadow-md': selectedSize === t,
                   'bg-white text-neutral-800 border-neutral-300 hover:bg-neutral-100': selectedSize !== t,
                   'opacity-50 cursor-not-allowed': !hasStock(selectedColor, t)
-                }"
-                :disabled="!hasStock(selectedColor, t)"
-                @click="selectSize(t)">
-                {{ t }}
-              </button>
+                }" :disabled="!hasStock(selectedColor, t)" @click="selectSize(t)">
+                  {{ t }}
+                </button>
               </div>
             </div>
           </div>
@@ -252,12 +243,9 @@
       <i class="fab fa-whatsapp fa-2xl"></i>
     </a>
     <transition name="fade-slide">
-      <div
-        v-if="showContactUsMessage"
+      <div v-if="showContactUsMessage"
         class="fixed right-24 bottom-10 bg-white text-neutral-900 px-4 py-2 rounded-full shadow-lg text-sm sm:text-base hover:shadow-2xl hover:scale-110 cursor-pointer"
-        aria-label="¿Necesitas ayuda? Haz clic para ver el catálogo"
-        @click="scrollToCatalog"
-      >
+        aria-label="¿Necesitas ayuda? Haz clic para ver el catálogo" @click="scrollToCatalog">
         ¿Dudas 🤔?
       </div>
     </transition>
