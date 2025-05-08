@@ -3,7 +3,6 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
-      lang: localStorage.getItem("lang") || "es",
       menuAbierto: false,
       showContactUsMessage: false,
       imagenActual: 0,
@@ -64,23 +63,20 @@ createApp({
       productoModal: {},
       selectedColor: null,
       selectedSize: null,
-      formulario: {nombre:'',email:'',mensaje:''}
+      formulario: { nombre: '', email: '', mensaje: '' },
+      formularioInicial: { nombre: '', email: '', mensaje: '' }
     }
   },
   computed: {
-    productos() {
-      const t = translations[this.lang];
-      return this.productosOriginales.map(p => ({
-        ...p,
-        nombre: t[`producto_${p.id}_nombre`] || '',
-        descripcion: t[`producto_${p.id}_descripcion`] || ''
-      }));
-    },
+    
     productosFiltrados() {
       return this.filtroGenero==='todos' ? this.productos : this.productos.filter(p=>p.genero===this.filtroGenero);
     }
   },
   methods:{
+    scrollToCatalog() {
+      document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth' });
+    },
     onScroll(){
       const scrollPos=window.scrollY+window.innerHeight;
       const footerTop=document.getElementById('contacto').getBoundingClientRect().top+window.scrollY;
@@ -88,20 +84,37 @@ createApp({
     },
     prevImage(){ const imgs=this.productoModal.imagenes[this.selectedColor]; this.imagenIndex=(this.imagenIndex+imgs.length-1)%imgs.length; },
     nextImage(){ const imgs=this.productoModal.imagenes[this.selectedColor]; this.imagenIndex=(this.imagenIndex+1)%imgs.length; },
-    abrirModal(producto){
-      this.imagenIndex=0; this.productoModal=producto; this.selectedColor=producto.colores[0].name; this.selectedSize=null; this.modalAbierto=true;
-      setTimeout(()=>{ mediumZoom('.zoomable',{background:'rgba(0,0,0,0.8)',scrollOffset:40}); },100);
+    abrirModal(producto) {
+      this.imagenIndex = 0;
+      this.productoModal = producto;
+      this.selectedColor = producto.colores[0].name;
+      this.selectedSize = null;
+      this.modalAbierto = true;
+    
+      this.$nextTick(() => {
+        mediumZoom('.zoomable', {
+          background: 'rgba(0,0,0,0.85)',
+          scrollOffset: 40,
+          margin: 24
+        });
+      });
     },
     cerrarModal(){ this.modalAbierto=false; },
     selectColor(c){ this.selectedColor=c; this.selectedSize=null; },
     selectSize(s){ if(this.hasStock(this.selectedColor,s)) this.selectedSize=s; },
     hasStock(c,s){ return this.productoModal.stock[c]?.[s]>0; },
-    pagar(){
-      if(!this.selectedColor||!this.selectedSize){ alert('Por favor selecciona color y talla antes de comprar.'); return; }
-      const msg=`Hola, me gustaría comprar una ${this.productoModal.nombre}, color ${this.selectedColor}, talla ${this.selectedSize}`;
-      window.open(`https://wa.me/573506120616?text=${encodeURIComponent(msg)}`,'_blank');
+    pagar() {
+      if (!this.selectedColor || !this.selectedSize) {
+        alert('Selecciona un color y una talla antes de comprar.');
+        return;
+      }
+      const msg = `Hola, me interesa la ${this.productoModal.nombre} en color ${this.selectedColor}, talla ${this.selectedSize}`;
+      window.open(`https://wa.me/573506120616?text=${encodeURIComponent(msg)}`, '_blank');
     },
-    enviarMensaje(){ alert(`Gracias, ${this.formulario.nombre}!`); this.formulario={nombre:'',email:'',mensaje:''}; }
+    enviarMensaje() {
+      alert(`Gracias, ${this.formulario.nombre}!`);
+      this.formulario = { ...this.formularioInicial };
+    },
   },
   mounted(){window.addEventListener('scroll',this.onScroll); setInterval(()=>{this.imagenActual=(this.imagenActual+1)%this.imagenesCarrusel.length;},5000);},
   beforeUnmount(){window.removeEventListener('scroll',this.onScroll);}

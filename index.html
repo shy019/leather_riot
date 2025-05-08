@@ -8,6 +8,8 @@
     content="Leather Riot: tienda virtual de chaquetas de cuero en Bogotá, Colombia. Diseños auténticos y artesanía premium." />
   <meta name="robots" content="index, follow" />
   <title>Leather Riot</title>
+  <link rel="preload" href="img/logo_lateral_bg.png" as="image" />
+  <link rel="preload" href="img/hombre-1.webp" as="image" />
   <link rel="canonical" href="https://www.leatherriot.com/" />
   <link rel="icon" href="img/logo_nombre.ico" type="image/x-icon" />
   <!-- Open Graph / Twitter -->
@@ -42,7 +44,7 @@
     <!-- Header -->
     <header class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-200 shadow-md sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
+
         <div class="flex items-center space-x-3">
           <a href="#" class="block">
             <img src="img/logo_lateral_bg.png" alt="Logo Leather Riot" class="h-12 w-auto" loading="lazy" />
@@ -55,7 +57,8 @@
           <a href="#contacto" class="hover:text-neutral-900 transition">Contacto</a>
         </nav>
         <!-- Botón hamburguesa móvil -->
-        <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl text-neutral-800">
+        <button @click="menuAbierto = !menuAbierto"
+          class="lg:hidden text-2xl text-neutral-800 hover:text-amber-600 transition">
           <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
         </button>
       </div>
@@ -71,15 +74,15 @@
             <nav class="flex flex-col space-y-4 mt-4">
               <a href="#" @click="menuAbierto = false"
                 class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-                <i class="fa-solid fa-house text-xl"></i><span data-i18n="inicio">Inicio</span>
+                <i class="fa-solid fa-house text-xl"></i><span>Inicio</span>
               </a>
               <a href="#catalogo" @click="menuAbierto = false"
                 class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-                <i class="fa-solid fa-box-open text-xl"></i><span data-i18n="productos">Catálogo</span>
+                <i class="fa-solid fa-box-open text-xl"></i><span>Catálogo</span>
               </a>
               <a href="#contacto" @click="menuAbierto = false"
                 class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-                <i class="fa-solid fa-envelope text-xl"></i><span data-i18n="contacto">Contacto</span>
+                <i class="fa-solid fa-envelope text-xl"></i><span>Contacto</span>
               </a>
             </nav>
             <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
@@ -87,67 +90,57 @@
         </div>
       </transition>
       <!-- Carrusel -->
-    <div class="relative w-full h-[600px] overflow-hidden">
-      <transition name="fade" mode="out-in">
-        <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover" />
-      </transition>
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 flex items-center justify-center px-4">
-        <div class="text-center text-white max-w-2xl space-y-4">
-          <h2 class="text-4xl md:text-5xl font-bold">Descubre tu estilo en cuero</h2>
-          <p class="text-lg md:text-xl">Diseños auténticos, artesanía impecable. Chaquetas que definen tu presencia.</p>
-          <button
-            @click="scrollToCatalog()"
-            class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full shadow-lg transition"
-          >
-            Ver colección
-          </button>
+      <div class="relative w-full h-[600px] overflow-hidden">
+        <transition name="fade" mode="out-in">
+          <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover" />
+        </transition>
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 flex items-center justify-center px-4">
+          <div class="text-center text-white max-w-2xl space-y-4">
+            <h2 class="text-4xl md:text-5xl font-bold">Descubre tu estilo en cuero</h2>
+            <p class="text-lg md:text-xl">Diseños auténticos, artesanía impecable. Chaquetas que definen tu presencia.
+            </p>
+            <a href="#catalogo"
+              class="inline-block mt-4 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full shadow-lg transition">
+              Ver colección
+            </a>
+          </div>
         </div>
       </div>
-    </div>
       <!-- Catálogo -->
       <section id="catalogo" class="flex-1 py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
           <h3 class="text-3xl font-bold mb-8 text-center">Nuestra Colección</h3>
           <div class="flex items-center justify-center mb-12 space-x-4">
             <label for="filtroGenero" class="text-lg font-semibold">Filtrar por género:</label>
-            <select
-              id="filtroGenero"
-              v-model="filtroGenero"
-              class="border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-2 transition"
-            >
+            <select id="filtroGenero" v-model="filtroGenero"
+              class="border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-2 transition">
               <option value="todos">Todos</option>
               <option value="hombre">Hombre</option>
               <option value="mujer">Mujer</option>
             </select>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div
-              v-for="producto in productosFiltrados"
-              :key="producto.id"
-              @click="abrirModal(producto)"
-              class="relative bg-white rounded-2xl overflow-hidden shadow-lg group cursor-pointer transition-transform hover:scale-105"
-            >
-              <img
-                :src="producto.imagen"
-                :alt="producto.nombre"
-                class="w-full h-72 object-cover"
-              />
+            <div v-for="producto in productosFiltrados" :key="producto.id" @click="abrirModal(producto)"
+              class="group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:border hover:border-amber-400 cursor-pointer">
+              <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-72 object-cover" />
               <!-- Overlay al hacer hover -->
-              <div
-                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"
-              ></div>
+              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
               <div class="p-6">
-                <div class="p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <h4 class="text-lg sm:text-xl font-semibold mb-2">{{ producto.nombre }}</h4>
+                <div class="flex flex-col justify-between h-full">
+                  <div class="group">
+                    <h4
+                      class="text-lg sm:text-xl font-semibold mb-2 transition group-hover:underline decoration-amber-500">
+                      {{ producto.nombre }}
+                    </h4>
                     <p class="text-sm text-neutral-600 mb-4">{{ producto.descripcion }}</p>
                     <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
                   </div>
                   <div class="mt-auto flex items-center justify-between pt-4">
-                    <p class="text-base sm:text-lg font-bold text-neutral-900">${{ producto.precio.toLocaleString() }}</p>
+                    <p class="text-base sm:text-lg font-bold text-neutral-900">${{ producto.precio.toLocaleString() }}
+                    </p>
                     <button @click.stop="abrirModal(producto)"
-                      class="ml-4 bg-black text-white px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-neutral-800 transition"
-                      data-i18n="comprar">
+                      class="ml-4 bg-black text-white px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-amber-600 transition-all shadow-sm hover:shadow-md">
                       Comprar
                     </button>
                   </div>
@@ -162,7 +155,8 @@
         <div v-if="modalAbierto" @click.self="cerrarModal"
           class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div
-            class="modal-content z-[9999] bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
+            class="modal-content z-[9999] bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]"
+            role="dialog" aria-modal="true" aria-labelledby="titulo-modal" tabindex="-1">
             <button @click="cerrarModal" aria-label="Cerrar modal"
               class="absolute top-3 right-3 z-30 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md">
               <i class="fa-solid fa-xmark"></i>
@@ -177,45 +171,41 @@
                 class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
                   class="fa-solid fa-chevron-right text-black text-2xl"></i></button>
             </div>
-            <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
+            <h4 id="titulo-modal" class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
             <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
             <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
             <!-- Colores -->
             <div class="flex gap-6 mb-4">
-              <!-- Selector de color -->
               <div class="w-1/2">
-                <p class="font-semibold mb-2" data-i18n="color">Color:</p>
+                <!-- Selector de color -->
+                <p class="font-semibold mb-2">Color:</p>
                 <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="color in productoModal.colores"
-                    :key="color.name"
-                    class="color-btn"
-                    :class="{ selected: selectedColor === color.name }"
-                    :style="{ backgroundColor: color.code }"
-                    @click="selectColor(color.name)">
+                  <button v-for="color in productoModal.colores" :key="color.name"
+                    class="w-6 h-6 rounded-full border transition duration-200" :class="{
+                    'ring-2 ring-black border-black scale-110 shadow': selectedColor === color.name,
+                    'border-neutral-300 hover:ring-1 hover:ring-neutral-400': selectedColor !== color.name
+                  }" :style="{ backgroundColor: color.code }" @click="selectColor(color.name)">
                   </button>
                 </div>
               </div>
-            
-              <!-- Selector de talla -->
+
               <div class="w-1/2">
-                <p class="font-semibold mb-2" data-i18n="talla">Talla:</p>
+                <!-- Selector de talla -->
+                <p class="font-semibold mb-2">Talla:</p>
                 <div class="flex flex-wrap gap-2">
-                  <button
-                    v-for="t in productoModal.tallas"
-                    :key="t"
-                    class="size-btn"
-                    :class="{ disabled: !hasStock(selectedColor, t), selected: selectedSize === t }"
-                    :disabled="!hasStock(selectedColor, t)"
-                    @click="selectSize(t)">
+                  <button v-for="t in productoModal.tallas" :key="t"
+                    class="px-3 py-1 rounded border text-sm font-medium transition duration-200" :class="{
+                    'bg-black text-white border-black scale-105 shadow-md': selectedSize === t,
+                    'bg-white text-neutral-800 border-neutral-300 hover:bg-neutral-100': selectedSize !== t,
+                    'opacity-50 cursor-not-allowed': !hasStock(selectedColor, t)
+                  }" :disabled="!hasStock(selectedColor, t)" @click="selectSize(t)">
                     {{ t }}
                   </button>
                 </div>
               </div>
             </div>
             <button @click="pagar()"
-              class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition"
-              data-i18n="comprar">Comprar</button>
+              class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition">Comprar</button>
           </div>
         </div>
       </transition>
@@ -224,30 +214,14 @@
         <div class="max-w-xl mx-auto px-6 lg:px-8">
           <h3 class="text-3xl font-bold mb-8 text-center">Contáctanos</h3>
           <form @submit.prevent="enviarMensaje" class="space-y-6 bg-gray-50 p-8 rounded-2xl shadow-lg">
-            <input
-              type="text"
-              v-model="formulario.nombre"
-              placeholder="Tu nombre"
-              required
-              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3"
-            />
-            <input
-              type="email"
-              v-model="formulario.email"
-              placeholder="Tu correo electrónico"
-              required
-              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3"
-            />
-            <textarea
-              v-model="formulario.mensaje"
-              placeholder="Tu mensaje"
-              required
-              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3 h-32 resize-none"
-            ></textarea>
-            <button
-              type="submit"
-              class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-full shadow transition"
-            >
+            <input type="text" v-model="formulario.nombre" placeholder="Tu nombre" required
+              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3" />
+            <input type="email" v-model="formulario.email" placeholder="Tu correo electrónico" required
+              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3" />
+            <textarea v-model="formulario.mensaje" placeholder="Tu mensaje" required
+              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3 h-32 resize-none"></textarea>
+            <button type="submit"
+              class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-full shadow transition">
               Enviar mensaje
             </button>
           </form>
@@ -266,24 +240,22 @@
         </div>
       </footer>
       <!-- WhatsApp Fixed -->
-    <a
-      href="https://wa.me/573506120616"
-      target="_blank"
-      class="fixed bottom-8 right-8 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition"
-    >
-      <i class="fab fa-whatsapp fa-2xl"></i>
-    </a>
-      <div v-if="showContactUsMessage"
-        class="fixed bottom-7 right-20 bg-white text-neutral-900 px-1 py-2 rounded-lg shadow-md transition-opacity duration-300"
-        data-i18n="dudas">
-        ¿Dudas🤔?</div>
+      <a href="https://wa.me/573506120616" target="_blank" title="Contáctanos por WhatsApp"
+        class="fixed bottom-8 right-8 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition">
+        <i class="fab fa-whatsapp fa-2xl"></i>
+      </a>
+      <div v-show="showContactUsMessage"
+        class="fixed right-24 bottom-10 bg-white text-neutral-900 px-4 py-2 rounded-full shadow-lg transition-all duration-300 text-sm sm:text-base hover:shadow-2xl hover:scale-110 cursor-pointer"
+        title="¿Necesitas ayuda?" @click="scrollToCatalog">
+        ¿Dudas 🤔?
+      </div>
     </div>
   </div>
-    <!-- Scripts -->
-    <script defer src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://unpkg.com/vue@3"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
-    <script defer src="js/app.js"></script>
+  <!-- Scripts -->
+  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/vue@3"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+  <script defer src="js/app.js"></script>
 </body>
 
 </html>
