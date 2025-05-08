@@ -85,3 +85,16 @@ select {
     opacity: 0;
     transform: translateY(10px)
 }
+
+.medium-zoom-image--opened {
+    max-width: none !important;
+    max-height: none !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+#imagen-ampliada {
+    max-height: 90vh;
+    max-width: 100%;
+    cursor: grab;
+}

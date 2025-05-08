@@ -17,6 +17,8 @@ createApp({
       menuAbierto: false,
       showContactUsMessage: false,
       imagenActual: 0,
+      imagenZoomUrl: '',
+      imagenZoomVisible: false,
       imagenIndex: 0,
       imagenesCarrusel: ['img/hombre-2.webp', 'img/mujer-2.jpg'],
       filtroGenero: 'todos',
@@ -85,6 +87,15 @@ createApp({
     }
   },
   methods: {
+    ampliarImagen(url) {
+      this.imagenZoomUrl = url;
+      this.imagenZoomVisible = true;
+      document.body.style.overflow = 'hidden';
+    },
+    cerrarImagen() {
+      this.imagenZoomVisible = false;
+      document.body.style.overflow = '';
+    },
     scrollToCatalog() {
       document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth' });
     },
