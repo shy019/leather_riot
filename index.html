@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap" rel="stylesheet" />
   <!-- CSS -->
-  <link href="css/styles.css" rel="stylesheet" />
+  <link href="css/styles.min.css" rel="stylesheet" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <!-- Google Analytics -->
@@ -39,191 +39,251 @@
 <body class="bg-neutral-50 text-neutral-900 scroll-smooth">
 
   <div id="app" class="min-h-screen flex flex-col">
-  <!-- Header -->
-  <header class="bg-white sticky top-0 z-50 border-b border-neutral-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-     
-      <!-- Logo + selector de idioma juntos -->
-      <div class="flex items-center space-x-2">
-        <a href="#" class="flex items-center">
-          <img
-            src="img/logo_lateral.png"
-            alt="Logo Leather Riot"
-            class="h-12 w-auto -ml-2.5"
-            loading="lazy"
-          />
-        </a>
-
-        <!--<button id="lang-flag" onclick="switchLanguage()"
-          style="font-size:24px;background:none;border:none;cursor:pointer;" title="Cambiar idioma">
-          
-  <img
-    id="lang-flag-icon"
-    src="img/flags/us.svg"
-    alt="Inglés"
-    class="h-6 w-6 object-contain"
-    loading="lazy"
-  />
-        </button>-->
-      </div>
-        <nav class="hidden lg:flex space-x-10 text-lg font-medium">
-          <a href="#" class="hover:text-neutral-700 transition" data-i18n="inicio">Inicio</a>
-          <a href="#catalogo" class="hover:text-neutral-700 transition" data-i18n="productos">Catálogo</a>
-          <a href="#contacto" class="hover:text-neutral-700 transition" data-i18n="contacto">Contacto</a>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-200 shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        
+        <div class="flex items-center space-x-3">
+          <a href="#" class="block">
+            <img src="img/logo_lateral_bg.png" alt="Logo Leather Riot" class="h-12 w-auto" loading="lazy" />
+          </a>
+        </div>
+        <!-- Nav desktop -->
+        <nav class="hidden lg:flex space-x-8 text-lg font-medium text-neutral-800">
+          <a href="#" class="hover:text-neutral-900 transition">Inicio</a>
+          <a href="#catalogo" class="hover:text-neutral-900 transition">Catálogo</a>
+          <a href="#contacto" class="hover:text-neutral-900 transition">Contacto</a>
         </nav>
-        <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl focus:outline-none"
-          aria-label="Alternar menú">
+        <!-- Botón hamburguesa móvil -->
+        <button @click="menuAbierto = !menuAbierto" class="lg:hidden text-2xl text-neutral-800">
           <i :class="menuAbierto ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
         </button>
-    </div>
-  </header>
-  <div id="app" class="min-h-screen flex flex-col">
-    <!-- Mobile Menu Panel -->
-    <transition name="fade">
-      <div v-if="menuAbierto" class="fixed inset-0 z-40 flex pt-16">
-        <div @click="menuAbierto = false" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
-        <div
-          class="relative ml-auto w-64 h-full bg-gradient-to-b from-white to-neutral-100 shadow-xl p-6 overflow-y-auto">
-          <nav class="flex flex-col space-y-4 mt-4">
-            <a href="#" @click="menuAbierto = false"
-              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-              <i class="fa-solid fa-house text-xl"></i><span data-i18n="inicio">Inicio</span>
-            </a>
-            <a href="#catalogo" @click="menuAbierto = false"
-              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-              <i class="fa-solid fa-box-open text-xl"></i><span data-i18n="productos">Catálogo</span>
-            </a>
-            <a href="#contacto" @click="menuAbierto = false"
-              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
-              <i class="fa-solid fa-envelope text-xl"></i><span data-i18n="contacto">Contacto</span>
-            </a>
-          </nav>
-          <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
-        </div>
       </div>
-    </transition>
-    <!-- Carrusel -->
+    </header>
+
+    <div class="min-h-screen flex flex-col">
+      <!-- Mobile Menu Panel -->
+      <transition name="fade">
+        <div v-if="menuAbierto" class="fixed inset-0 z-40 flex pt-16">
+          <div @click="menuAbierto = false" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+          <div
+            class="relative ml-auto w-64 h-full bg-gradient-to-b from-white to-neutral-100 shadow-xl p-6 overflow-y-auto">
+            <nav class="flex flex-col space-y-4 mt-4">
+              <a href="#" @click="menuAbierto = false"
+                class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+                <i class="fa-solid fa-house text-xl"></i><span data-i18n="inicio">Inicio</span>
+              </a>
+              <a href="#catalogo" @click="menuAbierto = false"
+                class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+                <i class="fa-solid fa-box-open text-xl"></i><span data-i18n="productos">Catálogo</span>
+              </a>
+              <a href="#contacto" @click="menuAbierto = false"
+                class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+                <i class="fa-solid fa-envelope text-xl"></i><span data-i18n="contacto">Contacto</span>
+              </a>
+            </nav>
+            <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
+          </div>
+        </div>
+      </transition>
+      <!-- Carrusel -->
     <div class="relative w-full h-[600px] overflow-hidden">
       <transition name="fade" mode="out-in">
-        <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover"
-          alt="Carrusel Leather Riot" loading="lazy" />
+        <img :src="imagenesCarrusel[imagenActual]" :key="imagenActual" class="w-full h-full object-cover" />
       </transition>
-      <div class="absolute inset-0 bg-black/40 flex items-center justify-center px-4">
-        <div class="text-center text-white max-w-2xl">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" data-i18n="titulo_descripcion">Descubre tu estilo en cuero</h2>
-          <p class="text-base sm:text-lg mb-6" data-i18n="descripcion">Diseños auténticos, artesanía impecable. Chaquetas que definen tu
-            presencia.</p>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 flex items-center justify-center px-4">
+        <div class="text-center text-white max-w-2xl space-y-4">
+          <h2 class="text-4xl md:text-5xl font-bold">Descubre tu estilo en cuero</h2>
+          <p class="text-lg md:text-xl">Diseños auténticos, artesanía impecable. Chaquetas que definen tu presencia.</p>
+          <button
+            @click="scrollToCatalog()"
+            class="mt-4 bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full shadow-lg transition"
+          >
+            Ver colección
+          </button>
         </div>
       </div>
     </div>
-    <!-- Catálogo -->
-    <section id="catalogo" class="flex-1 px-4 sm:px-6 lg:px-8 py-16 bg-white">
-      <h3 class="text-2xl sm:text-3xl font-bold mb-6 text-center" data-i18n="titulo">Nuestra Colección</h3>
-      <div class="flex items-center justify-center mb-10">
-        <label for="filtroGenero" class="text-base sm:text-lg font-medium mr-3" data-i18n="filtrar">Filtrar por género:</label>
-        <select id="filtroGenero" v-model="filtroGenero"
-          class="border border-neutral-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-600 transition">
-          <option value="todos" data-i18n="todos">Todos</option>
-          <option value="hombre" data-i18n="hombre">Hombre</option>
-          <option value="mujer" data-i18n="mujer">Mujer</option>
-        </select>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div v-for="producto in productosFiltrados" :key="producto.id"
-          class="bg-neutral-100 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:scale-105 transform transition cursor-pointer"
-          @click="abrirModal(producto)">
-          <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-64 sm:h-72 md:h-80 object-cover"
-            loading="lazy" />
-          <div class="p-6">
-            <h4 class="text-lg sm:text-xl font-semibold mb-2">{{ producto.nombre }}</h4>
-            <p class="text-sm text-neutral-600 mb-3">{{ producto.descripcion }}</p>
-            <p class="text-base sm:text-lg font-bold text-neutral-900 mb-4">${{ producto.precio.toLocaleString() }}</p>
+      <!-- Catálogo -->
+      <section id="catalogo" class="flex-1 py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+          <h3 class="text-3xl font-bold mb-8 text-center">Nuestra Colección</h3>
+          <div class="flex items-center justify-center mb-12 space-x-4">
+            <label for="filtroGenero" class="text-lg font-semibold">Filtrar por género:</label>
+            <select
+              id="filtroGenero"
+              v-model="filtroGenero"
+              class="border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-2 transition"
+            >
+              <option value="todos">Todos</option>
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div
+              v-for="producto in productosFiltrados"
+              :key="producto.id"
+              @click="abrirModal(producto)"
+              class="relative bg-white rounded-2xl overflow-hidden shadow-lg group cursor-pointer transition-transform hover:scale-105"
+            >
+              <img
+                :src="producto.imagen"
+                :alt="producto.nombre"
+                class="w-full h-72 object-cover"
+              />
+              <!-- Overlay al hacer hover -->
+              <div
+                class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"
+              ></div>
+              <div class="p-6">
+                <div class="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <h4 class="text-lg sm:text-xl font-semibold mb-2">{{ producto.nombre }}</h4>
+                    <p class="text-sm text-neutral-600 mb-4">{{ producto.descripcion }}</p>
+                    <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
+                  </div>
+                  <div class="mt-auto flex items-center justify-between pt-4">
+                    <p class="text-base sm:text-lg font-bold text-neutral-900">${{ producto.precio.toLocaleString() }}</p>
+                    <button @click.stop="abrirModal(producto)"
+                      class="ml-4 bg-black text-white px-4 py-2 rounded-lg text-sm sm:text-base hover:bg-neutral-800 transition"
+                      data-i18n="comprar">
+                      Comprar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!-- Modal -->
-    <transition name="fade" mode="out-in">
-      <div v-if="modalAbierto" @click.self="cerrarModal"
-        class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-        <div
-          class="modal-content z-[9999] bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
-          <button @click="cerrarModal"
-            class="absolute top-3 right-3 z-30 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-          <div class="relative w-full h-64 sm:h-80 lg:h-[500px] overflow-hidden mb-4">
-            <img :src="productoModal.imagenes[selectedColor][imagenIndex]"
-              class="zoomable rounded-lg w-full h-full object-contain bg-neutral-100 cursor-zoom-in" loading="lazy" />
-            <button v-if="productoModal.imagenes[selectedColor].length>1" @click="prevImage"
-              class="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
-                class="fa-solid fa-chevron-left text-black text-2xl"></i></button>
-            <button v-if="productoModal.imagenes[selectedColor].length>1" @click="nextImage"
-              class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
-                class="fa-solid fa-chevron-right text-black text-2xl"></i></button>
+      </section>
+      <!-- Modal -->
+      <transition name="fade" mode="out-in">
+        <div v-if="modalAbierto" @click.self="cerrarModal"
+          class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div
+            class="modal-content z-[9999] bg-white rounded-2xl overflow-hidden shadow-xl max-w-4xl w-full lg:w-3/4 mx-4 p-8 relative overflow-y-auto max-h-[90vh] sm:max-h-[80vh] lg:max-h-[70vh]">
+            <button @click="cerrarModal" aria-label="Cerrar modal"
+              class="absolute top-3 right-3 z-30 text-xl w-12 h-12 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors duration-200 shadow-md">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="relative w-full h-64 sm:h-80 lg:h-[500px] overflow-hidden mb-4">
+              <img :src="productoModal.imagenes[selectedColor][imagenIndex]"
+                class="zoomable rounded-lg w-full h-full object-contain bg-neutral-100 cursor-zoom-in" loading="lazy" />
+              <button v-if="productoModal.imagenes[selectedColor].length>1" @click="prevImage"
+                class="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
+                  class="fa-solid fa-chevron-left text-black text-2xl"></i></button>
+              <button v-if="productoModal.imagenes[selectedColor].length>1" @click="nextImage"
+                class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
+                  class="fa-solid fa-chevron-right text-black text-2xl"></i></button>
+            </div>
+            <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
+            <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
+            <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
+            <!-- Colores -->
+            <div class="flex gap-6 mb-4">
+              <!-- Selector de color -->
+              <div class="w-1/2">
+                <p class="font-semibold mb-2" data-i18n="color">Color:</p>
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    v-for="color in productoModal.colores"
+                    :key="color.name"
+                    class="color-btn"
+                    :class="{ selected: selectedColor === color.name }"
+                    :style="{ backgroundColor: color.code }"
+                    @click="selectColor(color.name)">
+                  </button>
+                </div>
+              </div>
+            
+              <!-- Selector de talla -->
+              <div class="w-1/2">
+                <p class="font-semibold mb-2" data-i18n="talla">Talla:</p>
+                <div class="flex flex-wrap gap-2">
+                  <button
+                    v-for="t in productoModal.tallas"
+                    :key="t"
+                    class="size-btn"
+                    :class="{ disabled: !hasStock(selectedColor, t), selected: selectedSize === t }"
+                    :disabled="!hasStock(selectedColor, t)"
+                    @click="selectSize(t)">
+                    {{ t }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button @click="pagar()"
+              class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition"
+              data-i18n="comprar">Comprar</button>
           </div>
-          <h4 class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
-          <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
-          <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
-          <!-- Colores -->
-          <div class="mb-4">
-            <h5 class="font-semibold mb-2" data-i18n="color">Color:</h5>
-            <div class="flex space-x-3"><button v-for="color in productoModal.colores" :key="color.name"
-                class="color-btn" :class="{selected: selectedColor===color.name}" :style="{backgroundColor:color.code}"
-                @click="selectColor(color.name)"></button></div>
-          </div>
-          <!-- Tallas -->
-          <div class="mb-4">
-            <h5 class="font-semibold mb-2" data-i18n="talla">Talla:</h5>
-            <div class="flex space-x-3"><button v-for="t in productoModal.tallas" :key="t" class="size-btn"
-                :class="{disabled:!hasStock(selectedColor,t),selected:selectedSize===t}"
-                :disabled="!hasStock(selectedColor,t)" @click="selectSize(t)">{{ t }}</button></div>
-          </div>
-          <button @click="pagar()"
-            class="w-full bg-black text-white px-6 py-2 rounded hover:bg-neutral-800 transition" data-i18n="comprar">Comprar</button>
         </div>
-      </div>
-    </transition>
-    <!-- Contacto -->
-    <section id="contacto" class="bg-neutral-100 py-16 px-8">
-      <h3 class="text-2xl font-bold mb-8 text-center" data-i18n="contacto_titulo">Contáctanos</h3>
-      <div class="max-w-xl mx-auto space-y-6">
-        <form @submit.prevent="enviarMensaje" class="space-y-4">
-          <input type="text" v-model="formulario.nombre" placeholder="Tu nombre" required
-            class="w-full border px-4 py-2 rounded" />
-          <input type="email" v-model="formulario.email" placeholder="Tu correo electrónico" required
-            class="w-full border px-4 py-2 rounded" />
-          <textarea v-model="formulario.mensaje" placeholder="Tu mensaje" required
-            class="w-full border px-4 py-2 rounded"></textarea>
-          <button type="submit"
-            class="w-full bg-black text-white px-4 py-2 rounded hover:bg-neutral-800 transition" data-i18n="contacto_enviar">Enviar</button>
-        </form>
-      </div>
-    </section>
-    <!-- Footer -->
-    <footer class="p-6 border-t text-center text-sm bg-white">
-      <div class="mb-4 flex justify-center space-x-6 text-xl text-neutral-700"><a href="https://facebook.com"
-          target="_blank" class="hover:text-blue-600 transition"><i class="fab fa-facebook"></i></a><a
-          href="https://instagram.com" target="_blank" class="hover:text-pink-600 transition"><i
-            class="fab fa-instagram"></i></a><a href="https://tiktok.com" target="_blank"
-          class="hover:text-black transition"><i class="fab fa-tiktok"></i></a><a href="https://youtube.com"
-          target="_blank" class="hover:text-red-600 transition"><i class="fab fa-youtube"></i></a></div> <p data-i18n="footer_mensaje">© 2025 Leather
-            Riot. Todos los derechos reservados.</p>
-    </footer>
-    <!-- WhatsApp Fixed -->
-    <a href="https://wa.me/573506120616" target="_blank"
-      class="whatsapp-fixed bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg"><i
-        class="fab fa-whatsapp fa-xl"></i></a>
-    <div v-if="showContactUsMessage"
-      class="fixed bottom-7 right-20 bg-white text-neutral-900 px-1 py-2 rounded-lg shadow-md transition-opacity duration-300" data-i18n="dudas">
-      ¿Dudas🤔?</div>
+      </transition>
+      <!-- Contacto -->
+      <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-xl mx-auto px-6 lg:px-8">
+          <h3 class="text-3xl font-bold mb-8 text-center">Contáctanos</h3>
+          <form @submit.prevent="enviarMensaje" class="space-y-6 bg-gray-50 p-8 rounded-2xl shadow-lg">
+            <input
+              type="text"
+              v-model="formulario.nombre"
+              placeholder="Tu nombre"
+              required
+              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3"
+            />
+            <input
+              type="email"
+              v-model="formulario.email"
+              placeholder="Tu correo electrónico"
+              required
+              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3"
+            />
+            <textarea
+              v-model="formulario.mensaje"
+              placeholder="Tu mensaje"
+              required
+              class="w-full border-neutral-300 focus:border-amber-500 focus:ring-amber-200 shadow-sm rounded-lg px-4 py-3 h-32 resize-none"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-full shadow transition"
+            >
+              Enviar mensaje
+            </button>
+          </form>
+        </div>
+      </section>
+      <!-- Footer -->
+      <footer class="bg-neutral-900 text-gray-300 py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center space-y-4">
+          <div class="flex justify-center space-x-6 text-2xl">
+            <a href="#" class="hover:text-white"><i class="fab fa-facebook"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-youtube"></i></a>
+          </div>
+          <p>© 2025 Leather Riot. Todos los derechos reservados.</p>
+        </div>
+      </footer>
+      <!-- WhatsApp Fixed -->
+    <a
+      href="https://wa.me/573506120616"
+      target="_blank"
+      class="fixed bottom-8 right-8 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition"
+    >
+      <i class="fab fa-whatsapp fa-2xl"></i>
+    </a>
+      <div v-if="showContactUsMessage"
+        class="fixed bottom-7 right-20 bg-white text-neutral-900 px-1 py-2 rounded-lg shadow-md transition-opacity duration-300"
+        data-i18n="dudas">
+        ¿Dudas🤔?</div>
+    </div>
   </div>
-  <!-- Scripts -->
-  <script defer src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://unpkg.com/vue@3"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
-  <script defer src="js/app.js"></script>
-  <script defer src="js/i18n.js"></script>
+    <!-- Scripts -->
+    <script defer src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/vue@3"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
+    <script defer src="js/app.js"></script>
 </body>
 
 </html>
