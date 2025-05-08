@@ -99,7 +99,10 @@ createApp({
         });
       });
     },
-    cerrarModal(){ this.modalAbierto=false; },
+    cerrarModal() {
+      this.modalAbierto = false;
+      mediumZoom('.zoomable').detach();
+    },
     selectColor(c){ this.selectedColor=c; this.selectedSize=null; },
     selectSize(s){ if(this.hasStock(this.selectedColor,s)) this.selectedSize=s; },
     hasStock(c,s){ return this.productoModal.stock[c]?.[s]>0; },
@@ -110,6 +113,7 @@ createApp({
       }
       const msg = `Hola, me interesa la ${this.productoModal.nombre} en color ${this.selectedColor}, talla ${this.selectedSize}`;
       window.open(`https://wa.me/573506120616?text=${encodeURIComponent(msg)}`, '_blank');
+      this.cerrarModal();
     },
     enviarMensaje() {
       alert(`Gracias, ${this.formulario.nombre}!`);
