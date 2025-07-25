@@ -121,7 +121,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           <div v-for="producto in productosFiltrados" :key="producto.id" @click="abrirModal(producto)"
             class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ring-1 ring-transparent hover:ring-amber-500 cursor-pointer">
-            <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-72 object-cover" />
+            <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-[70%] object-cover" />
             <!-- Overlay al hacer hover -->
             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
             <div class="p-6">
@@ -144,6 +144,7 @@
         </div>
       </div>
     </section>
+    
     <!-- Modal -->
     <transition name="fade" mode="out-in">
       <div v-if="modalAbierto" @click.self="cerrarModal"
