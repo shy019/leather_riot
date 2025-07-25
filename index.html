@@ -225,7 +225,7 @@
       </div>
     </section>
     <!-- Contacto -->
-    <section id="contacto" class="py-20 bg-white">
+    <section id="contacto" class="pt-16 bg-white">
       <div class="max-w-xl mx-auto px-6 lg:px-8">
         <h3 class="text-3xl font-bold mb-8 text-center">Contáctanos</h3>
         <form @submit.prevent="enviarMensaje" class="space-y-6 bg-gray-50 p-8 rounded-2xl shadow-lg">
@@ -242,7 +242,7 @@
         </form>
       </div>
       <!-- Footer -->
-      <footer class="bg-neutral-900 text-gray-300 py-8">
+      <footer class="bg-neutral-900 text-gray-300 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center space-y-4">
           <div class="flex justify-center space-x-6 text-2xl">
             <a href="https://www.facebook.com/profile.php?id=61576133100200" class="hover:text-white"><i
@@ -267,7 +267,7 @@
           ¿Dudas 🤔?
         </div>
       </transition>
-      <div v-if="imagenZoomVisible" class="fixed inset-0 z-[9999] bg-black/90 overflow-auto"
+      <div v-if="imagenZoomVisible" class="fixed inset-0 z-[9999] bg-black/90 overflow-auto clear-both"
         style="touch-action: auto;">
         <div class="min-h-screen w-max mx-auto flex items-center justify-center">
           <img :src="imagenZoomUrl" alt="Imagen ampliada"
