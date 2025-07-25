@@ -54,6 +54,7 @@
         <nav class="hidden lg:flex space-x-8 text-lg font-medium text-neutral-800">
           <a href="#" class="hover:text-neutral-900 transition">Inicio</a>
           <a href="#catalogo" class="hover:text-neutral-900 transition">Catálogo</a>
+          <a href="#personalizacion" class="hover:text-neutral-900 transition">Personalización</a>
           <a href="#contacto" class="hover:text-neutral-900 transition">Contacto</a>
         </nav>
         <!-- Botón hamburguesa móvil -->
@@ -78,6 +79,10 @@
             <a href="#catalogo" @click="menuAbierto = false"
               class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
               <i class="fa-solid fa-box-open text-xl"></i><span>Catálogo</span>
+            </a>
+            <a href="#personalizacion" @click="menuAbierto = false"
+              class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
+              <i class="fa-solid fa-cogs text-xl"></i><span>Personalización</span>
             </a>
             <a href="#contacto" @click="menuAbierto = false"
               class="flex items-center space-x-3 text-lg font-semibold uppercase hover:bg-neutral-200 px-4 py-3 rounded transition">
@@ -144,7 +149,7 @@
         </div>
       </div>
     </section>
-    
+
     <!-- Modal -->
     <transition name="fade" mode="out-in">
       <div v-if="modalAbierto" @click.self="cerrarModal"
@@ -208,6 +213,17 @@
         </div>
       </div>
     </transition>
+    </section>
+    <section id="personalizacion" class="py-12 bg-amber-50 text-center">
+      <div class="max-w-3xl mx-auto px-6">
+        <h3 class="text-2xl font-semibold mb-4">¿Buscas algo único?</h3>
+        <p class="text-lg">
+          En <strong>Leather Riot</strong> creamos <span class="text-amber-600 font-bold">diseños personalizados</span>
+          para que tu chaqueta de cuero refleje tu estilo y personalidad. ¡Contáctanos y da rienda suelta a tu
+          creatividad!
+        </p>
+      </div>
+    </section>
     <!-- Contacto -->
     <section id="contacto" class="py-20 bg-white">
       <div class="max-w-xl mx-auto px-6 lg:px-8">
@@ -225,41 +241,43 @@
           </button>
         </form>
       </div>
-    </section>
-    <!-- Footer -->
-    <footer class="bg-neutral-900 text-gray-300 py-8">
-      <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center space-y-4">
-        <div class="flex justify-center space-x-6 text-2xl">
-          <a href="#" class="hover:text-white"><i class="fab fa-facebook"></i></a>
-          <a href="#" class="hover:text-white"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="hover:text-white"><i class="fab fa-tiktok"></i></a>
-          <a href="#" class="hover:text-white"><i class="fab fa-youtube"></i></a>
+      <!-- Footer -->
+      <footer class="bg-neutral-900 text-gray-300 py-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center space-y-4">
+          <div class="flex justify-center space-x-6 text-2xl">
+            <a href="https://www.facebook.com/profile.php?id=61576133100200" class="hover:text-white"><i
+                class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/leather_riot" class="hover:text-white"><i
+                class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="hover:text-white"><i class="fab fa-youtube"></i></a>
+          </div>
+          <p>© 2025 Leather Riot. Todos los derechos reservados.</p>
         </div>
-        <p>© 2025 Leather Riot. Todos los derechos reservados.</p>
+      </footer>
+      <!-- WhatsApp Fixed -->
+      <a href="https://wa.me/573057730226" target="_blank" title="Contáctanos por WhatsApp"
+        class="fixed bottom-8 right-8 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition">
+        <i class="fab fa-whatsapp fa-2xl"></i>
+      </a>
+      <transition name="fade-slide">
+        <div v-if="showContactUsMessage"
+          class="fixed right-24 bottom-10 bg-white text-neutral-900 px-4 py-2 rounded-full shadow-lg text-sm sm:text-base hover:shadow-2xl hover:scale-110 cursor-pointer"
+          aria-label="¿Necesitas ayuda? Haz clic para ver el catálogo" @click="scrollToCatalog">
+          ¿Dudas 🤔?
+        </div>
+      </transition>
+      <div v-if="imagenZoomVisible" class="fixed inset-0 z-[9999] bg-black/90 overflow-auto"
+        style="touch-action: auto;">
+        <div class="min-h-screen w-max mx-auto flex items-center justify-center">
+          <img :src="imagenZoomUrl" alt="Imagen ampliada"
+            class="block max-w-[1200px] max-h-[90vh] object-contain mx-auto" />
+          <button @click="cerrarImagen"
+            class="fixed top-4 right-4 text-white text-3xl bg-black/50 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition">
+            &times;
+          </button>
+        </div>
       </div>
-    </footer>
-    <!-- WhatsApp Fixed -->
-    <a href="https://wa.me/573057730226" target="_blank" title="Contáctanos por WhatsApp"
-      class="fixed bottom-8 right-8 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-xl transition">
-      <i class="fab fa-whatsapp fa-2xl"></i>
-    </a>
-    <transition name="fade-slide">
-      <div v-if="showContactUsMessage"
-        class="fixed right-24 bottom-10 bg-white text-neutral-900 px-4 py-2 rounded-full shadow-lg text-sm sm:text-base hover:shadow-2xl hover:scale-110 cursor-pointer"
-        aria-label="¿Necesitas ayuda? Haz clic para ver el catálogo" @click="scrollToCatalog">
-        ¿Dudas 🤔?
-      </div>
-    </transition>
-    <div v-if="imagenZoomVisible" class="fixed inset-0 z-[9999] bg-black/90 overflow-auto" style="touch-action: auto;">
-      <div class="min-h-screen w-max mx-auto flex items-center justify-center">
-        <img :src="imagenZoomUrl" alt="Imagen ampliada"
-          class="block max-w-[1200px] max-h-[90vh] object-contain mx-auto" />
-        <button @click="cerrarImagen"
-          class="fixed top-4 right-4 text-white text-3xl bg-black/50 rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition">
-          &times;
-        </button>
-      </div>
-    </div>
   </div>
   <!-- Scripts -->
   <script defer src="https://cdn.tailwindcss.com"></script>
