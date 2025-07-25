@@ -158,7 +158,7 @@ createApp({
         return;
       }
       const msg = `Hola, me interesa la ${this.productoModal.nombre} en color ${this.selectedColor}, talla ${this.selectedSize}`;
-      window.open(`https://wa.me/573506120616?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(`https://wa.me/573057730226?text=${encodeURIComponent(msg)}`, '_blank');
       this.cerrarModal();
     },
     enviarMensaje() {
