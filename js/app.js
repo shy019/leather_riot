@@ -40,7 +40,7 @@ createApp({
           nombre: 'Pamela',
           descripcion: 'Chaqueta ovejera con interior borrego, ideal para clima frío. Cálida, elegante y moderna.',
           precio: 539999,
-          imagen: 'img/photo.jpg',
+          imagen: 'img/mujer/pamela-mujer-3.webp',
           genero: 'mujer',
           colores: [{ name: 'Negro', code: '#000' }],
           tallas: ['10', '12'],
