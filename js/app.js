@@ -157,7 +157,7 @@ createApp({
         alert('Selecciona un color y una talla antes de comprar.');
         return;
       }
-      const msg = `Hola, me interesa la ${this.productoModal.nombre} en color ${this.selectedColor}, talla ${this.selectedSize}`;
+      const msg = `Hola, me interesa la chaqueta ${this.productoModal.nombre} en color ${this.selectedColor}, talla ${this.selectedSize}`;
       window.open(`https://wa.me/573057730226?text=${encodeURIComponent(msg)}`, '_blank');
       this.cerrarModal();
     },
