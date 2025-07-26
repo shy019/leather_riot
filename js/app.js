@@ -61,7 +61,7 @@ createApp({
         },
         {
           id: 4,
-          nombre: '5097',
+          nombre: 'Doma',
           descripcion: 'Estilo sobrio en cuero negro. Corte recto, elegante y adaptable a cualquier look.',
           precio: 499999,
           imagen: 'img/hombre/5097-negra-3.webp',
