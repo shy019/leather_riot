@@ -139,10 +139,18 @@
                   <p class="text-sm text-neutral-600 mb-4">{{ producto.descripcion }}</p>
                   <div class="mt-6 border-t border-neutral-300 opacity-50"></div>
                 </div>
-                <div class="mt-auto flex items-center justify-between pt-4">
-                  <p class="text-base sm:text-lg font-bold text-neutral-900">${{ producto.precio.toLocaleString() }}
-                  </p>
-                </div>
+<div class="mt-auto flex items-center justify-between pt-4">
+<!-- Badge de descuento -->
+<span v-if="producto.discount" class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-full mr-2">
+  {{ producto.discount }} % OFF
+</span>
+
+<!-- Precio -->
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-1">
+  <span class="line-through text-neutral-500 text-sm">${{ producto.precioOriginal.toLocaleString() }}</span>
+  <span class="text-base sm:text-lg font-bold text-neutral-900">${{ producto.precio.toLocaleString() }}</span>
+</div>
+</div>
               </div>
             </div>
           </div>
@@ -174,7 +182,20 @@
           </div>
           <h4 id="titulo-modal" class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
           <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
-          <p class="text-xl font-bold mb-4">${{ productoModal.precio.toLocaleString() }}</p>
+<div class="mb-4 flex items-baseline justify-center space-x-4">
+  <!-- Precio original tachado -->
+  <span class="text-lg text-neutral-500 line-through">
+    ${{ productoModal.precioOriginal.toLocaleString() }}
+  </span>
+  <!-- Precio con descuento -->
+  <span class="text-2xl font-bold text-amber-600">
+    ${{ productoModal.precio.toLocaleString() }}
+  </span>
+  <!-- Badge de descuento -->
+  <span class="bg-amber-600 text-white text-sm font-bold px-2 py-1 rounded-full">
+    {{ productoModal.discount }} % OFF
+  </span>
+</div>
           <!-- Colores -->
           <div class="flex gap-6 mb-4">
             <div class="w-1/2">

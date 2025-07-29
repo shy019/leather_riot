@@ -22,80 +22,7 @@ createApp({
       imagenIndex: 0,
       imagenesCarrusel: ['img/mujer-carrusel.webp', 'img/hombre-carrusel.webp'],
       filtroGenero: 'todos',
-      productos: [
-        {
-          id: 1,
-          nombre: 'Corona',
-          descripcion: 'Diseño urbano con contraste negro y rojo. Moderna, llamativa y perfecta para destacar estilo.',
-          precio: 499999,
-          imagen: 'img/hombre/corona-negro-2.webp',
-          genero: 'hombre',
-          colores: [{ name: 'Negro', code: '#000' }],
-          tallas: ['M', 'L', 'XL'],
-          stock: { Negro: { M: 2, L: 2, XL: 2 }},
-          imagenes: { Negro: ['img/hombre/corona-negro-2.webp', 'img/hombre/corona-negro-1.webp', 'img/hombre/corona-negro-3.webp']}
-        },
-        {
-          id: 2,
-          nombre: 'Pamela',
-          descripcion: 'Chaqueta ovejera con interior borrego, ideal para clima frío. Cálida, elegante y moderna.',
-          precio: 539999,
-          imagen: 'img/mujer/pamela-mujer-3.webp',
-          genero: 'mujer',
-          colores: [{ name: 'Negro', code: '#000' }],
-          tallas: ['10', '12'],
-          stock: { Negro: { 10: 2, 12: 2}},
-          imagenes: { Negro: ['img/mujer/pamela-mujer-3.webp', 'img/mujer/pamela-mujer-2.webp', 'img/mujer/pamela-mujer-1.webp']}
-        },
-        {
-          id: 3,
-          nombre: 'Moroni',
-          descripcion: 'Diseño clásico masculino en cuero negro. Versátil, sobria y perfecta para cualquier ocasión.',
-          precio: 499999,
-          imagen: 'img/hombre/moroni-negra-2.webp',
-          genero: 'hombre',
-          colores: [{ name: 'Negro', code: '#000' }],
-          tallas: ['M', 'L', 'XL'],
-          stock: { Negro: { M: 2, L: 2, XL: 2}},
-          imagenes: { Negro: ['img/hombre/moroni-negra-2.webp', 'img/hombre/moroni-negra-1.webp', 'img/hombre/moroni-negra-3.webp']}
-        },
-        {
-          id: 4,
-          nombre: '5097',
-          descripcion: 'Estilo sobrio en cuero negro. Corte recto, elegante y adaptable a cualquier look.',
-          precio: 499999,
-          imagen: 'img/hombre/5097-negra-3.webp',
-          genero: 'hombre',
-          colores: [{ name: 'Negro', code: '#000' }],
-          tallas: ['M', 'L'],
-          stock: { Negro: { M: 2, L: 2 }},
-          imagenes: { Negro: ['img/hombre/5097-negra-3.webp', 'img/hombre/5097-negra-2.webp', 'img/hombre/5097-negra-1.webp']}
-        },
-        {
-          id: 5,
-          nombre: 'Laure',
-          descripcion: 'Entallada de cuero negro. Femenina, elegante y perfecta para uso diario.',
-          precio: 469999,
-          imagen: 'img/mujer/laura-negra-mujer-3.webp',
-          genero: 'mujer',
-          colores: [{ name: 'Negro', code: '#000' }],
-          tallas: ['10', '12'],
-          stock: { Negro: { 10: 2, 12: 2}},
-          imagenes: { Negro: ['img/mujer/laura-negra-mujer-3.webp', 'img/mujer/laura-negra-mujer-2.webp', 'img/mujer/laura-negra-mujer-1.webp']}
-        },
-        {
-          id: 6,
-          nombre: 'Aviador',
-          descripcion: 'Estilo aviador en cuero con cuello y forro de borrego. Con un toque clásico que impone estilo.',
-          precio: 519999,
-          imagen: 'img/hombre/aviador-1.webp',
-          genero: 'hombre',
-          colores: [{ name: 'Cafe', code: '#804000' }],
-          tallas: ['M'],
-          stock: { Cafe: { M: 2 }},
-          imagenes: { Cafe: ['img/hombre/aviador-1.webp', 'img/hombre/aviador-2.webp', 'img/hombre/aviador-3.webp']}
-        }
-      ],
+      productos: [],
       modalAbierto: false,
       productoModal: {},
       selectedColor: null,
@@ -104,6 +31,93 @@ createApp({
       formularioInicial: { nombre: '', email: '', mensaje: '' }
     }
   },
+  created() {
+    const productosBase = [
+      {
+        id: 1,
+        nombre: 'Corona',
+        descripcion: 'Diseño urbano con contraste negro y rojo. Moderna, llamativa y perfecta para destacar estilo.',
+        precio: 499999,
+        imagen: 'img/hombre/corona-negro-2.webp',
+        genero: 'hombre',
+        colores: [{ name: 'Negro', code: '#000' }],
+        tallas: ['M', 'L', 'XL'],
+        stock: { Negro: { M: 2, L: 2, XL: 2 } },
+        imagenes: { Negro: ['img/hombre/corona-negro-2.webp', 'img/hombre/corona-negro-1.webp', 'img/hombre/corona-negro-3.webp'] }
+      },
+      {
+        id: 2,
+        nombre: 'Pamela',
+        descripcion: 'Chaqueta ovejera con interior borrego, ideal para clima frío. Cálida, elegante y moderna.',
+        precio: 539999,
+        imagen: 'img/mujer/pamela-mujer-3.webp',
+        genero: 'mujer',
+        colores: [{ name: 'Negro', code: '#000' }],
+        tallas: ['10', '12'],
+        stock: { Negro: { 10: 2, 12: 2 } },
+        imagenes: { Negro: ['img/mujer/pamela-mujer-3.webp', 'img/mujer/pamela-mujer-2.webp', 'img/mujer/pamela-mujer-1.webp'] }
+      },
+      {
+        id: 3,
+        nombre: 'Moroni',
+        descripcion: 'Diseño clásico masculino en cuero negro. Versátil, sobria y perfecta para cualquier ocasión.',
+        precio: 499999,
+        imagen: 'img/hombre/moroni-negra-2.webp',
+        genero: 'hombre',
+        colores: [{ name: 'Negro', code: '#000' }],
+        tallas: ['M', 'L', 'XL'],
+        stock: { Negro: { M: 2, L: 2, XL: 2 } },
+        imagenes: { Negro: ['img/hombre/moroni-negra-2.webp', 'img/hombre/moroni-negra-1.webp', 'img/hombre/moroni-negra-3.webp'] }
+      },
+      {
+        id: 4,
+        nombre: '5097',
+        descripcion: 'Estilo sobrio en cuero negro. Corte recto, elegante y adaptable a cualquier look.',
+        precio: 499999,
+        imagen: 'img/hombre/5097-negra-3.webp',
+        genero: 'hombre',
+        colores: [{ name: 'Negro', code: '#000' }],
+        tallas: ['M', 'L'],
+        stock: { Negro: { M: 2, L: 2 } },
+        imagenes: { Negro: ['img/hombre/5097-negra-3.webp', 'img/hombre/5097-negra-2.webp', 'img/hombre/5097-negra-1.webp'] }
+      },
+      {
+        id: 5,
+        nombre: 'Laure',
+        descripcion: 'Entallada de cuero negro. Femenina, elegante y perfecta para uso diario.',
+        precio: 469999,
+        imagen: 'img/mujer/laura-negra-mujer-3.webp',
+        genero: 'mujer',
+        colores: [{ name: 'Negro', code: '#000' }],
+        tallas: ['10', '12'],
+        stock: { Negro: { 10: 2, 12: 2 } },
+        imagenes: { Negro: ['img/mujer/laura-negra-mujer-3.webp', 'img/mujer/laura-negra-mujer-2.webp', 'img/mujer/laura-negra-mujer-1.webp'] }
+      },
+      {
+        id: 6,
+        nombre: 'Aviador',
+        descripcion: 'Estilo aviador en cuero con cuello y forro de borrego. Con un toque clásico que impone estilo.',
+        precio: 519999,
+        imagen: 'img/hombre/aviador-1.webp',
+        genero: 'hombre',
+        colores: [{ name: 'Cafe', code: '#804000' }],
+        tallas: ['M'],
+        stock: { Cafe: { M: 2 } },
+        imagenes: { Cafe: ['img/hombre/aviador-1.webp', 'img/hombre/aviador-2.webp', 'img/hombre/aviador-3.webp'] }
+      }
+    ];
+    // Asignar productos e inyectar descuento aleatorio 15-30% múltiplos de 5
+    this.productos = productosBase.map(p => {
+      const descuento = p.genero === 'hombre' ? 20 : 25;
+      const precioOriginal = Math.round(p.precio / (1 - descuento / 100));
+
+      return {
+        ...p,
+        discount: descuento,
+        precioOriginal
+      };
+    });
+  },
   computed: {
 
     productosFiltrados() {
@@ -111,6 +125,10 @@ createApp({
     }
   },
   methods: {
+    getRandomDiscount() {
+      const valores = [15, 20, 25, 30];
+      return valores[Math.floor(Math.random() * valores.length)];
+    },
     ampliarImagen(url) {
       this.imagenZoomUrl = url;
       this.imagenZoomVisible = true;
@@ -166,6 +184,20 @@ createApp({
       this.formulario = { ...this.formularioInicial };
     },
   },
-  mounted() { window.addEventListener('scroll', this.onScroll); setInterval(() => { this.imagenActual = (this.imagenActual + 1) % this.imagenesCarrusel.length; }, 5000); },
-  beforeUnmount() { window.removeEventListener('scroll', this.onScroll); }
+  mounted() {
+    window.addEventListener('scroll', this.onScroll);
+    setInterval(() => {
+      this.imagenActual = (this.imagenActual + 1) % this.imagenesCarrusel.length;
+    }, 5000);
+
+    // Ocultar loader si existe
+    const loader = document.getElementById('loading');
+    if (loader) {
+      loader.classList.add('fade-out');
+      setTimeout(() => loader.remove(), 300);
+    }
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+  }
 }).mount('#app');
