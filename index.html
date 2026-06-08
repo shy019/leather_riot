@@ -143,7 +143,7 @@
                     <span class="text-lg font-bold text-neutral-900">${{ producto.precio.toLocaleString() }}</span>
                     <span v-if="producto.discount"
                       class="bg-amber-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                      {{ producto.discount }} % OFF
+                      {{ producto.discount }} % OFF
                     </span>
                   </div>
                   <span class="line-through text-sm text-neutral-500">
@@ -181,21 +181,31 @@
           <h4 id="titulo-modal" class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
           <p class="text-neutral-600 mb-4">{{ productoModal.descripcion }}</p>
           <div class="mb-6 text-left">
-            <div class="flex justify-start items-center gap-3 mb-1">
+            <!-- Precio disponible -->
+            <div v-if="!productoModal.agotado" class="flex justify-start items-center gap-3 mb-1">
               <span class="text-3xl font-bold text-amber-600">
                 ${{ productoModal.precio.toLocaleString() }}
               </span>
               <span v-if="productoModal.discount"
                 class="bg-amber-600 text-white text-sm font-bold px-2 py-1 rounded-full">
-                {{ productoModal.discount }} % OFF
+                {{ productoModal.discount }} % OFF
               </span>
             </div>
-            <span class="text-base text-neutral-500 line-through block">
+            <!-- Precio agotado: tachado + badge rojo -->
+            <div v-else class="flex justify-start items-center gap-3 mb-1">
+              <span class="text-3xl font-bold" style="color: #9ca3af; text-decoration: line-through;">
+                ${{ productoModal.precio.toLocaleString() }}
+              </span>
+              <span style="background: #dc2626; color: #fff; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; border-radius: 9999px;">
+                Agotado
+              </span>
+            </div>
+            <span v-if="!productoModal.agotado" class="text-base text-neutral-500 line-through block">
               ${{ productoModal.precioOriginal.toLocaleString() }}
             </span>
           </div>
           <!-- Colores -->
-          <div class="flex gap-6 mb-4">
+          <div v-if="!productoModal.agotado" class="flex gap-6 mb-4">
             <div class="w-1/2">
               <!-- Selector de color -->
               <p class="font-semibold mb-2">Color:</p>
@@ -229,7 +239,7 @@
             ]" @click="pagar()">
             Comprar
           </button>
-          <div v-else style="width: 100%; text-align: center; background: #111; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 14px 24px; border-radius: 6px; font-size: 14px;">
+          <div v-else style="width: 100%; text-align: center; background: #111; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 14px 24px; border-radius: 6px; font-size: 14px; margin-top: 16px;">
             Agotado
           </div>
         </div>
