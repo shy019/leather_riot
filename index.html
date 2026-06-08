@@ -117,11 +117,12 @@
           <div v-if="productosFiltrados.length === 0" class="col-span-full text-center text-neutral-500 py-12">No hay productos disponibles para este filtro.</div>
           <div v-for="producto in productosFiltrados" :key="producto.id" @click="abrirModal(producto)"
             class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ring-1 ring-transparent hover:ring-amber-500 cursor-pointer">
-            <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-[70%] object-cover" width="400" height="500" :class="{ 'grayscale opacity-70': producto.agotado }" />
-            <!-- Badge Agotado -->
-            <div v-if="producto.agotado" class="absolute inset-0 z-10 flex items-center justify-center">
-              <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-              <span class="relative bg-white text-neutral-900 text-sm font-black uppercase tracking-widest px-5 py-2 rounded-sm shadow-lg border-2 border-neutral-900">Sold Out</span>
+            <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-[70%] object-cover" width="400" height="500" :style="producto.agotado ? 'opacity: 0.5; filter: grayscale(100%)' : ''" />
+            <!-- Badge Agotado - Ribbon diagonal -->
+            <div v-if="producto.agotado" class="absolute top-4 right-[-35px] z-10 rotate-45" style="transform: rotate(45deg);">
+              <div style="background: #111; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 6px 40px; text-align: center;">
+                Sold Out
+              </div>
             </div>
             <!-- Overlay al hacer hover -->
             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
@@ -228,9 +229,8 @@
             ]" @click="pagar()">
             Comprar
           </button>
-          <div v-else class="w-full flex items-center justify-center gap-3 bg-neutral-900 text-white font-bold uppercase tracking-wider px-6 py-4 rounded">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
-            <span>Sold Out</span>
+          <div v-else style="width: 100%; text-align: center; background: #111; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 14px 24px; border-radius: 6px; font-size: 14px;">
+            Sold Out
           </div>
         </div>
       </div>
