@@ -3,13 +3,13 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Leather Riot: tienda virtual de chaquetas de cuero en Bogotá, Colombia. Diseños auténticos y artesanía premium." />
   <meta name="robots" content="index, follow" />
   <title>Leather Riot</title>
   <link rel="preload" href="img/logo_lateral_bg.png" as="image" />
-  <link rel="preload" href="img/hombre-1.webp" as="image" />
+  <link rel="preload" href="img/mujer-carrusel.webp" as="image" />
   <link rel="canonical" href="https://www.leatherriot.com/" />
   <link rel="icon" href="img/logo_nombre.ico" type="image/x-icon" />
   <!-- CSS -->
@@ -18,24 +18,14 @@
   <meta property="og:site_name" content="Leather Riot" />
   <meta property="og:title" content="Leather Riot - Chaquetas de Cuero en Bogotá" />
   <meta property="og:description" content="Tienda virtual de chaquetas de cuero en Bogotá. Calidad y estilo." />
-  <meta property="og:image" content="img/og-image.jpg" />
+  <meta property="og:image" content="https://www.leatherriot.com/img/hombre-carrusel.webp" />
   <meta property="og:url" content="https://www.leatherriot.com/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap" rel="stylesheet" />
+
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script defer>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXX');
-  </script>
+  <link rel="stylesheet" href="css/fontawesome-subset.css" />
+
 </head>
 
 <body class="bg-neutral-50 text-neutral-900 scroll-smooth">
@@ -47,7 +37,7 @@
 
         <div class="flex items-center space-x-3">
           <a href="#" class="block">
-            <img src="img/logo_lateral_bg.png" alt="Logo Leather Riot" class="h-12 w-auto" loading="lazy" />
+            <img src="img/logo_lateral_bg.png" alt="Logo Leather Riot" class="h-12 w-auto" />
           </a>
         </div>
         <!-- Nav desktop -->
@@ -124,9 +114,12 @@
           </select>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div v-if="productosFiltrados.length === 0" class="col-span-full text-center text-neutral-500 py-12">No hay productos disponibles para este filtro.</div>
           <div v-for="producto in productosFiltrados" :key="producto.id" @click="abrirModal(producto)"
             class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ring-1 ring-transparent hover:ring-amber-500 cursor-pointer">
-            <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-[70%] object-cover" />
+            <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-[70%] object-cover" width="400" height="500" />
+            <!-- Badge Agotado -->
+            <span v-if="producto.agotado" class="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">AGOTADO</span>
             <!-- Overlay al hacer hover -->
             <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition"></div>
             <div class="p-6">
@@ -173,13 +166,12 @@
           </button>
           <div class="relative w-full h-64 sm:h-80 lg:h-[500px] overflow-hidden mb-4">
             <img :src="productoModal.imagenes[selectedColor][imagenIndex]"
-              class="rounded-lg w-full h-full object-contain bg-neutral-100 cursor-zoom-in" loading="lazy"
+              class="zoomable rounded-lg w-full h-full object-contain bg-neutral-100 cursor-zoom-in" loading="lazy"
+              width="800" height="600"
               @click="ampliarImagen(productoModal.imagenes[selectedColor][imagenIndex])" />
-            <button v-if="productoModal.imagenes[selectedColor].length>1" @click="prevImage"
-              class="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
+            <button @click="prevImage" aria-label="Imagen anterior" v-if="productoModal.imagenes[selectedColor].length >= 2" class="absolute left-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
                 class="fa-solid fa-chevron-left text-black text-2xl"></i></button>
-            <button v-if="productoModal.imagenes[selectedColor].length>1" @click="nextImage"
-              class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
+            <button @click="nextImage" aria-label="Imagen siguiente" v-if="productoModal.imagenes[selectedColor].length >= 2" class="absolute right-2 top-1/2 -translate-y-1/2 p-3 rounded-full transition-colors z-20"><i
                 class="fa-solid fa-chevron-right text-black text-2xl"></i></button>
           </div>
           <h4 id="titulo-modal" class="text-2xl font-bold mt-4">{{ productoModal.nombre }}</h4>
@@ -227,16 +219,18 @@
               </div>
             </div>
           </div>
-          <button :disabled="!selectedColor || !selectedSize" :class="[
+          <button v-if="!productoModal.agotado" :disabled="!selectedColor || !selectedSize" :class="[
               'w-full text-white px-6 py-2 rounded transition',
               selectedColor && selectedSize ? 'bg-black hover:bg-neutral-800' : 'bg-neutral-400 cursor-not-allowed'
             ]" @click="pagar()">
             Comprar
           </button>
+          <div v-else class="w-full text-center bg-red-100 text-red-700 font-semibold px-6 py-3 rounded">
+            Producto agotado
+          </div>
         </div>
       </div>
     </transition>
-    </section>
     <section id="personalizacion" class="py-12 bg-amber-50 text-center">
       <div class="max-w-3xl mx-auto px-6">
         <h3 class="text-2xl font-semibold mb-4">¿Buscas algo único?</h3>
@@ -268,12 +262,10 @@
       <footer class="bg-neutral-900 text-gray-300 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center space-y-4">
           <div class="flex justify-center space-x-6 text-2xl">
-            <a href="https://www.facebook.com/profile.php?id=61576133100200" class="hover:text-white"><i
+            <a href="https://www.facebook.com/profile.php?id=61576133100200" target="_blank" rel="noopener noreferrer" class="hover:text-white"><i
                 class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com/leather_riot" class="hover:text-white"><i
+            <a href="https://www.instagram.com/leather_riot" target="_blank" rel="noopener noreferrer" class="hover:text-white"><i
                 class="fab fa-instagram"></i></a>
-            <a href="#" class="hover:text-white"><i class="fab fa-tiktok"></i></a>
-            <a href="#" class="hover:text-white"><i class="fab fa-youtube"></i></a>
           </div>
           <p>© 2025 Leather Riot. Todos los derechos reservados.</p>
         </div>
@@ -303,8 +295,8 @@
       </div>
   </div>
   <!-- Scripts -->
-  <script defer src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://unpkg.com/vue@3"></script>
+  <link href="css/tailwind.min.css" rel="stylesheet" />
+  <script defer src="https://unpkg.com/vue@3.4.38/dist/vue.global.prod.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script>
   <script defer src="js/app.js"></script>
 </body>

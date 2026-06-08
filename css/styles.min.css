@@ -60,7 +60,14 @@ select {
     cursor: not-allowed
 }
 
-.medium-zoom-image--opened,
+.medium-zoom-image--opened {
+    z-index: 10000 !important;
+    max-width: none !important;
+    max-height: none !important;
+    width: auto !important;
+    height: auto !important
+}
+
 .medium-zoom-overlay {
     z-index: 10000 !important
 }
@@ -84,13 +91,6 @@ select {
 .fade-slide-leave-to {
     opacity: 0;
     transform: translateY(10px)
-}
-
-.medium-zoom-image--opened {
-    max-width: none !important;
-    max-height: none !important;
-    width: auto !important;
-    height: auto !important;
 }
 
 #imagen-ampliada {

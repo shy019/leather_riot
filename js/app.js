@@ -1,16 +1,5 @@
 const { createApp } = Vue;
 
-document.addEventListener('touchstart', function preventZoom(e) {
-  if (e.touches.length > 1) e.preventDefault();
-}, { passive: false });
-let lastTouch = 0;
-document.addEventListener('touchend', function (e) {
-  const now = (new Date()).getTime();
-  if (now - lastTouch <= 300) {
-    e.preventDefault();
-  }
-  lastTouch = now;
-}, false);
 createApp({
   data() {
     return {
@@ -37,7 +26,7 @@ createApp({
         id: 1,
         nombre: 'Corona',
         descripcion: 'Diseño urbano con contraste negro y rojo. Moderna, llamativa y perfecta para destacar estilo.',
-        precio: 499999,
+        precio: 360000,
         imagen: 'img/hombre/corona-negro-2.webp',
         genero: 'hombre',
         colores: [{ name: 'Negro', code: '#000' }],
@@ -49,7 +38,7 @@ createApp({
         id: 2,
         nombre: 'Pamela',
         descripcion: 'Chaqueta ovejera con interior borrego, ideal para clima frío. Cálida, elegante y moderna.',
-        precio: 539999,
+        precio: 420000,
         imagen: 'img/mujer/pamela-mujer-3.webp',
         genero: 'mujer',
         colores: [{ name: 'Negro', code: '#000' }],
@@ -61,7 +50,7 @@ createApp({
         id: 3,
         nombre: 'Moroni',
         descripcion: 'Diseño clásico masculino en cuero negro. Versátil, sobria y perfecta para cualquier ocasión.',
-        precio: 499999,
+        precio: 360000,
         imagen: 'img/hombre/moroni-negra-2.webp',
         genero: 'hombre',
         colores: [{ name: 'Negro', code: '#000' }],
@@ -73,7 +62,7 @@ createApp({
         id: 4,
         nombre: 'Doma',
         descripcion: 'Estilo sobrio en cuero negro. Corte recto, elegante y adaptable a cualquier look.',
-        precio: 499999,
+        precio: 360000,
         imagen: 'img/hombre/5097-negra-3.webp',
         genero: 'hombre',
         colores: [{ name: 'Negro', code: '#000' }],
@@ -85,7 +74,7 @@ createApp({
         id: 5,
         nombre: 'Laure',
         descripcion: 'Entallada de cuero negro. Femenina, elegante y perfecta para uso diario.',
-        precio: 469999,
+        precio: 350000,
         imagen: 'img/mujer/laura-negra-mujer-3.webp',
         genero: 'mujer',
         colores: [{ name: 'Negro', code: '#000' }],
@@ -97,12 +86,13 @@ createApp({
         id: 6,
         nombre: 'Aviador',
         descripcion: 'Estilo aviador en cuero con cuello y forro de borrego. Con un toque clásico que impone estilo.',
-        precio: 519999,
+        precio: 360000,
         imagen: 'img/hombre/aviador-1.webp',
         genero: 'hombre',
         colores: [{ name: 'Cafe', code: '#804000' }],
         tallas: ['M'],
-        stock: { Cafe: { M: 2 } },
+        stock: { Cafe: { M: 0 } },
+        agotado: true,
         imagenes: { Cafe: ['img/hombre/aviador-1.webp', 'img/hombre/aviador-2.webp', 'img/hombre/aviador-3.webp'] }
       }
     ];
@@ -125,10 +115,6 @@ createApp({
     }
   },
   methods: {
-    getRandomDiscount() {
-      const valores = [15, 20, 25, 30];
-      return valores[Math.floor(Math.random() * valores.length)];
-    },
     ampliarImagen(url) {
       this.imagenZoomUrl = url;
       this.imagenZoomVisible = true;
@@ -180,13 +166,14 @@ createApp({
       this.cerrarModal();
     },
     enviarMensaje() {
-      alert(`Gracias, ${this.formulario.nombre}!`);
+      const body = encodeURIComponent(`Nombre: ${this.formulario.nombre}\nEmail: ${this.formulario.email}\nMensaje: ${this.formulario.mensaje}`);
+      window.open(`https://wa.me/573057730226?text=${body}`, '_blank');
       this.formulario = { ...this.formularioInicial };
     },
   },
   mounted() {
     window.addEventListener('scroll', this.onScroll);
-    setInterval(() => {
+    this.carouselInterval = setInterval(() => {
       this.imagenActual = (this.imagenActual + 1) % this.imagenesCarrusel.length;
     }, 5000);
 
@@ -198,6 +185,7 @@ createApp({
     }
   },
   beforeUnmount() {
+    clearInterval(this.carouselInterval);
     window.removeEventListener('scroll', this.onScroll);
   }
 }).mount('#app');
