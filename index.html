@@ -118,10 +118,10 @@
           <div v-for="producto in productosFiltrados" :key="producto.id" @click="abrirModal(producto)"
             class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ring-1 ring-transparent hover:ring-amber-500 cursor-pointer">
             <img :src="producto.imagen" :alt="producto.nombre" class="w-full h-[70%] object-cover" width="400" height="500" :style="producto.agotado ? 'opacity: 0.5; filter: grayscale(100%)' : ''" />
-            <!-- Badge Agotado - Ribbon diagonal -->
-            <div v-if="producto.agotado" class="absolute top-4 right-[-35px] z-10 rotate-45" style="transform: rotate(45deg);">
-              <div style="background: #111; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 6px 40px; text-align: center;">
-                Sold Out
+            <!-- Badge Agotado - Horizontal -->
+            <div v-if="producto.agotado" class="absolute top-3 left-3 z-10">
+              <div style="background: #111; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 4px;">
+                Agotado
               </div>
             </div>
             <!-- Overlay al hacer hover -->
@@ -230,7 +230,7 @@
             Comprar
           </button>
           <div v-else style="width: 100%; text-align: center; background: #111; color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; padding: 14px 24px; border-radius: 6px; font-size: 14px;">
-            Sold Out
+            Agotado
           </div>
         </div>
       </div>
